@@ -1,0 +1,12 @@
+::ng-deep {
+  .ant-modal-content {
+    border-radius: .75rem !important;
+  }
+}
+
+.v-modal {
+  height: 70vh;
+  border-radius: .5rem;
+  overflow: hidden;
+  z-index: 1;
+}

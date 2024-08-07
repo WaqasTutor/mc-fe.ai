@@ -1,0 +1,124 @@
+<div class="page-header-transparent">
+  <div class="row align-items-md-center">
+    <div *ngIf="!showBtn" class="col-xl-6 col-lg-5 col-md-5 col-md-12 flex-grow-1">
+      <h2 class="header-text mc-h2 color-darkest m-0 pt-2">
+        {{this.heading === 'favourites' ? 'Favourite Contents' : (this.heading === 'flagged' ? 'Flagged Contents' : 'AI Contents')}}
+      </h2>
+    </div>
+    <div *ngIf="!showBtn" class="col-xl-6 col-lg-7 col-md-12">
+      <div class="row">
+        <div class="col-lg-6 col-md-5 col-sm-12 mt-2">
+          <nz-input-group [nzPrefix]="searchPrefix" class="flex-grow-1">
+            <input type="text" class="color-darker" nz-input placeholder="Search Contents" [(ngModel)]="search"
+              (ngModelChange)="searchChanged($event)">
+          </nz-input-group>
+          <ng-template #searchPrefix>
+            <i-feather name="search" class="feather-size-16 mr-1 stroke-dark"></i-feather>
+          </ng-template>
+        </div>
+        <div class="col-lg-6 col-md-7 col-sm-12 mt-2">
+          <div class="project-menu h-100 py-2 pointer px-3 project-selection-btn" (click)="searchToggle()">
+            <div class="d-flex h-100 align-items-center justify-content-between">
+              <p class="mc-p small lh-less color-dark fw-600 m-b-0 text-truncate">Project: <span
+                  class="mc-p small lh-less color-darker fw-500">{{selectedProject?.name}}</span></p>
+              <span class="my-icon"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div *ngIf="showBtn" class="col-xl-6 col-lg-4 col-md-12 flex-grow-1">
+      <h2 class="header-text mc-h2 color-darkest m-0 pt-2">AI Content</h2>
+    </div>
+    <div *ngIf="showBtn" class="col-xl-6 col-lg-8 col-md-12">
+      <div class="row">
+        <div class="col-xl-6 col-md-5 col-sm-12 mt-2">
+          <nz-input-group [nzPrefix]="searchPrefix" class="flex-grow-1">
+            <input type="text" class="color-darker" nz-input placeholder="Search Contents" [(ngModel)]="search"
+              (ngModelChange)="searchChanged($event)">
+          </nz-input-group>
+          <ng-template #searchPrefix>
+            <i class="color-dark mr-1" nz-icon nzType="search"></i>
+          </ng-template>
+        </div>
+
+        <div class="col-xl-6 col-md-7 col-sm-12 mt-2 d-flex">
+          <div class="d-flex w-100">
+            <div class="project-menu d-flex align-items-center justify-content-between pointer px-3 flex-grow-1 ml-0"
+              (click)="searchToggle()">
+              <p class="left mc-p small color-dark m-b-0 d-inline-block text-truncate">Project: <span
+                  class="color-darker">{{selectedProject?.name}}</span></p>
+              <span class="my-icon"></span>
+            </div>
+            <a nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'"
+              class="ml-3 mc-btn mc-btn-primary fw-500 d-flex align-items-center justify-content-center" nz-tooltip
+              nzTooltipPlacement="bottomRight" nzTooltipTitle="Create new copy">
+              <i nz-icon nzType="plus" nzTheme="outline"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu #menu class="cust-list">
+                <li nz-submenu *ngFor="let toolTag of toolTags" [nzTitle]="toolTag">
+                  <ul class="cust-list">
+                    <li nz-menu-item *ngFor="let tool of categoryTools(toolTag)"  [routerLink]="['/tools/view/',tool.uuid]">
+                      {{tool.name}}
+                    </li>
+                  </ul>
+                </li>
+
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+    <div *ngIf="showBtn" class="col-xxl-6 col-xl-5 col-lg-2 col-md-3 flex-grow-1">
+      <h2 class="header-text mc-h2 color-darkest m-0 pt-2">AI Contents</h2>
+    </div>
+    <div *ngIf="showBtn" class="col-xxl-6 col-xl-7 col-lg-10 col-md-9 d-flex">
+      <div class="row flex-grow-1 flex-column flex-sm-row">
+        <div class="col-sm-6 mt-2">
+          <nz-input-group [nzPrefix]="searchPrefix" class=" flex-grow-1 header-search">
+            <input type="text" class="color-darker" nz-input placeholder="Search Contents" [(ngModel)]="search"
+              (ngModelChange)="searchChanged($event)">
+          </nz-input-group>
+          <ng-template #searchPrefix>
+            <i-feather name="search" class="feather-size-16 mr-1 stroke-dark"></i-feather>
+          </ng-template>
+        </div>
+        <div class="col-sm-6 row mt-2 pr-0 flex-nowrap">
+          <div class="col col-auto flex-grow-1">
+            <div class="project-menu d-flex align-items-center justify-content-between pointer py-2 px-3 project-selection-btn"
+              (click)="searchToggle()">
+              <p class="left mc-p small color-dark fw-600 m-b-0 d-inline-block text-truncate">Project: <span
+                  class="color-darker fw-500">{{selectedProject?.name}}</span></p>
+              <span class="my-icon"></span>
+            </div>
+          </div>
+          <div class="col col-auto d-flex justify-content-end p-r-0">
+            <a nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'"
+              class="d-flex mc-btn mc-btn-primary fw-500 d-flex align-items-center justify-content-center page-header-btn" nz-tooltip
+              nzTooltipPlacement="bottomRight" nzTooltipTitle="Create new copy">
+              <i-feather name="plus" class="feather-size-20"></i-feather>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu #menu class="cust-list">
+                <li nz-submenu *ngFor="let toolTag of toolTags" [nzTitle]="toolTag">
+                  <ul class="cust-list">
+                    <li nz-menu-item *ngFor="let tool of categoryTools(toolTag)"
+                      [routerLink]="['/tools/view/',tool.uuid]">
+                      {{tool.name}}
+                    </li>
+                  </ul>
+                </li>
+
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

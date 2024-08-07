@@ -1,0 +1,48 @@
+<div class="">
+  <app-ai-content-output-header [showBtn]="!idIcon && true" [heading]="idIcon" (searchStr)="searchStr($event)" (modalState)="openModal($event)"></app-ai-content-output-header>
+  <div class="container-fluid p-4">
+    <div class="row" *ngIf="content?.length==0||loading">
+      <div class="col-12 text-center" *ngIf="loading">
+        <i nz-icon [nzType]="'loading'" class="mt-5"></i>
+      </div>
+      <div *ngIf="content&&content?.length==0&&!loading" class="col-xl-6 col-md-6 col-sm-8 m-auto">
+        <nz-card class="card-shadow card-height content-card-main
+         error-card border border-warning p-1">
+          <div class="d-flex">
+            <nz-avatar [nzShape]="'square'" class="mr-3 ant-avatar-blue" nzSrc="assets/images/others/warning.png">
+            </nz-avatar>
+            <div class="flex-grow-1 align-self-center">
+              <h4>No Contents</h4>
+              <p>There isn't any content in this folder.</p>
+            </div>
+          </div>
+        </nz-card>
+      </div>
+    </div>
+    <div class="row" *ngIf="!loading">
+      <div *ngIf="!content" class="col-xl-6 col-md-6 col-sm-8 m-auto">
+        <nz-card class="card-shadow card-height content-card-main
+               error-card border border-warning p-1">
+          <div class="d-flex">
+            <nz-avatar [nzShape]="'square'" class="mr-3 ant-avatar-blue" nzSrc="assets/images/others/warning.png">
+            </nz-avatar>
+            <div class="flex-grow-1 align-self-center">
+              <h4>Warning</h4>
+              <p>No data get</p>
+            </div>
+          </div>
+        </nz-card>
+      </div>
+      <div *ngFor="let item of content | slice:min:max  | search:'text':search as count ;"
+        class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+        <app-content-box [contentData]="item" [iconOption]="sendIcon(idIcon)" [open]="openContentId"
+          (remove)="removeElement($event)">
+        </app-content-box>
+      </div>
+    </div>
+    <div class="p-b-10 m-t-20" *ngIf="!loading">
+      <nz-pagination [nzPageIndex]="page" *ngIf="content?.length>pageSize" [nzTotal]="content?.length"
+        class="width-fit mx-auto" [nzPageSize]=pageSize (nzPageIndexChange)="nzPageIndexChange($event);"></nz-pagination>
+    </div>
+  </div>
+</div>

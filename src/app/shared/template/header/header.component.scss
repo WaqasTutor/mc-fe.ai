@@ -1,0 +1,167 @@
+.upgrade-btn {
+  background: #ffffff;
+  // box-shadow: 0px 4px 8px rgba(54, 123, 245, 0.16),
+  //   0px 2px 4px rgba(54, 123, 245, 0.24);
+  border-radius: 10px;
+  color: #367bf5;
+  font-size: 12px;
+  padding: 0px;
+}
+
+.btn {
+  height: 38px;
+  width: 90px;
+}
+
+// iframe {
+//   // position: fixed;
+//   // z-index: 999;
+//   width: 100%;
+//   height: 100vh;
+// }
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 69%);
+  // opacity: 0.5;
+  z-index: 9999;
+  top: 0;
+  position: fixed;
+  display: flex;
+}
+
+.payment-form-modal {
+  background-color: #ffff;
+  // z-index: 10000;
+  // position: absolute;
+  // top: 0;
+  // right: 0;
+  width: 40%;
+  height: 100%;
+  overflow: scroll;
+  border: 0px;
+}
+
+.list-group-item {
+  background-color: transparent;
+}
+
+@media screen and (max-width: 1000px) {
+  .payment-form-modal {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .payment-form-modal {
+    width: 80%;
+  }
+}
+
+// @media screen and (max-width: 500px) {
+//   .payment-form-modal {
+//     width: 100%;
+//   }
+// }
+.custom-dropdown {
+  border-radius: 1rem;
+
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+
+  span {
+    color: #bfc2c7;
+  }
+}
+
+.ant-dropdown-menu {
+  border-radius: 10px;
+}
+
+.header-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #182135;
+}
+
+.logo {
+  img {
+    height: 40px;
+    width: 40px;
+    &:not(.logo-fold){
+      margin-left: 4px;
+    }
+  }
+}
+
+.search-btn {
+  flex: unset;
+  display: unset;
+  justify-content: space-between;
+  border-bottom: none;
+}
+
+.header-left-search {
+  i {
+    color: #7B88A8;
+  }
+}
+
+.notifications {
+  position: relative;
+  cursor: pointer;
+
+  .bell-icon {
+    color: #2D3958;
+  }
+}
+
+.notification-circle {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background: red;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  right: 0;
+}
+
+.help-btn {
+  border: none;
+  background-color: transparent;
+  border-radius: 0.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #7B88A8;
+  width: 72px;
+  height: 38px;
+  cursor: pointer;
+}
+
+.help-dropdown-item {
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25px;
+  letter-spacing: 0.015em;
+  text-align: left;
+  color: #546285 !important;
+}
+
+::ng-deep .beamer_icon.active, #beamerIcon.active {
+  right: -7px !important;
+  top: -3px !important;
+  animation: none !important;
+}
+
+@media only screen and (max-width: 992px) {
+  .header .logo {
+    display: none;
+  }
+}

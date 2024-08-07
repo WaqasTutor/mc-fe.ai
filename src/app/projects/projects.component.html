@@ -1,0 +1,99 @@
+<div class="page-header-transparent p-b-10">
+  <div class="row">
+    <div class="col-lg-11 mx-auto">
+      <div class="row align-items-md-center">
+        <div class="col-md-8 p-l-0 my-auto m-b-10 d-flex align-items-center justify-content-start">
+          <div class="row ml-0">
+            <div class="col-md-5 ml-0">
+              <h2 class="header-text p-l-0 mc-h2 color-darkest m-b-0">Projects</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12 d-flex align-items-md-end justify-content-end my-auto m-b-10">
+          <div class="text-md-right d-flex">
+            <nz-input-group [nzPrefix]="searchPrefix" class="flex-grow-1 header-search">
+              <input type="text" nz-input placeholder="Search Project" [(ngModel)]="searchInput"
+                (ngModelChange)="search()">
+            </nz-input-group>
+            <ng-template #searchPrefix>
+              <i class="opacity-04" nz-icon nzType="search"></i>
+            </ng-template>
+            <button nz-button class="ml-2 mc-btn mc-btn-tertiary page-header-btn" (click)="openModal()" nzTooltipTitle="New project"
+              nzTooltipPlacement="bottomCenter" nz-tooltip><i-feather name="plus" class="feather-size-20"></i-feather></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid p-4">
+  <div class="row">
+    <div class="col-lg-11 mx-auto">
+      <div class="row">
+        <div class="col-12 text-center" *ngIf="!projects">
+          <i nz-icon [nzType]="'loading'" class="mt-5"></i>
+        </div>
+        <a class="col-sm-12 col-md-6 col-lg-4 col-xl-3"
+          *ngFor="let project of projects| slice:min:max|search:'name':searchInput as count;let i=index;">
+          <nz-card class="proj-card" [nzBodyStyle]="{'padding': '0', 'height': '100%'}">
+            <div class="proj-opt">
+              <a class="mc-p mb-0 small color-dark" nz-dropdown nzTooltipPlacement="bottomRight" nzTrigger="click"
+                [nzDropdownMenu]="projectListSetting">
+                <i class="drop-i" nz-icon nzType="ellipsis" theme="outline"></i>
+              </a>
+              <nz-dropdown-menu #projectListSetting="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                  <li nz-menu-item (click)="openEdit(project)">
+                    <a>
+                      <i nz-icon nzType="edit" theme="outline"></i>
+                      <span class="m-l-10">Edit</span>
+                    </a>
+                  </li>
+                  <li nz-menu-divider></li>
+                  <li nz-menu-item (click)="delete(project)">
+                    <a>
+                      <i nz-icon nzType="delete" theme="outline"></i>
+                      <span class="m-l-10">Delete</span>
+                    </a>
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+            </div>
+            <div class="top {{colors[i%colors.length]}}">
+            <a class="h-100" [routerLink]="['./',project.uuid,'contents']">
+              <div class="h-100 d-flex justify-content-center align-items-center">
+                <div class="d-flex justify-content-center align-items-center bg">
+                  <i-feather name="folder" class="bg-i pointer align-items-center justify-content-center"></i-feather>
+                </div>
+              </div>
+            </a>
+            </div>
+            <div class="h-25">
+              <a [routerLink]="['./',project.uuid,'contents']">
+                <div class="p-4 h-100 d-flex flex-column justify-content-between">
+                  <div>
+                    <h4 class="mc-h4 color-darkest lh-lesser fw-500">
+                      {{project.name}}
+                    </h4>
+                    <p class="mc-p small color-darker fw-500 projectDescription">
+                      {{project.description ? project.description :'No description found'}}
+                    </p>
+                  </div>
+                  <p class="mc-p small lh-lesser mb-0 color-darker fw-500 d-flex align-items-center">
+                      <i-feather name="circle" class="feather-size-8 mr-2 fill-purple"></i-feather>
+                      {{project.total_contents? project.total_contents <= 1 ? project.total_contents +' content' : project.total_contents +' contents': 'No contents'}}
+                  </p>
+                </div>
+              </a>
+            </div>
+          </nz-card>
+        </a>
+      </div>
+      <div class="p-b-10 m-t-20" *ngIf="projects">
+        <nz-pagination [nzPageIndex]="1" *ngIf="projects?.length>pageSize" [nzTotal]="projects?.length"
+          class="width-fit mx-auto" [nzPageSize]="pageSize" (nzPageIndexChange)="nzPageIndexChange($event)">
+        </nz-pagination>
+      </div>
+    </div>
+  </div>
+</div>

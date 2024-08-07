@@ -1,0 +1,30 @@
+@media only screen and (min-width: 1200px) and (max-width: 1440px) {
+  .col-cust-4 {
+    max-width: 33.3333333333% !important;
+    flex: 0 0 33.3333333333% !important;
+  }
+}
+.error-card {
+  -webkit-transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  opacity: 1;
+  border-radius: 1.5rem;
+  background: white;
+  nz-avatar {
+    line-height: 100px;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+    border-radius: 16px;
+  }
+  img {
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+    border-radius: 16px;
+  }
+}

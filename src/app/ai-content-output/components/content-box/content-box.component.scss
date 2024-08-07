@@ -1,0 +1,45 @@
+::ng-deep .ant-modal-footer,
+::ng-deep .ant-modal-header {
+  border: none;
+}
+::ng-deep .ant-modal-content.c-b-m {
+  border-radius: 16px;
+}
+
+nz-card {
+  border-radius: 16px;
+  box-shadow: 0px 12px 24px rgba(18, 38, 63, 0.03);
+  overflow: hidden;
+  &:hover {
+    box-shadow: 0px 0px 2px rgb(0 0 0 / 5%);
+  }
+}
+
+.card-height {
+  height: 350px;
+  max-height: 350px;
+}
+
+pre {
+  font-family: "DM Sans";
+  max-width: 100%;
+  overflow: hidden;
+  white-space: unset;
+  line-height: 1.8;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1440px) {
+  .card-height {
+    height: 420px;
+  }
+}
+.content-card-header {
+  img {
+    width: 26px;
+    height: 26px;
+  }
+}
+.footer-border {
+  border-top: 1px solid #eff2f7;
+  padding-top: 14px !important;
+}

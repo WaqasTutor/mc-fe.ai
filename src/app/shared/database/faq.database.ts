@@ -1,0 +1,9 @@
+export let data = [
+  { show: false, question: 'How long is the trial period?', description: 'Our trial period is 7 days. If you have a promo code then the trial period will depend on the promo code.' },
+  { show: false, question: 'Where do I enter my promo code?', description: 'You will be able to enter a promo code on the next screen once you select a subscription package.' },
+  { show: false, question: 'What languages is MarketingCopy AI available in?', description: 'MarketingCopy AI supports the following input and output languages for short form copy generator; German, English, French, Italian, Japanese, Spanish, Dutch, Polish, Portugese, Russian, Chinese simplified, Bulgarian, Czech, Danish, Estonian, Finnish, Greek, Hungarian, Latvian, Lithuanian, Romanian, Slovak, Slovenian, Swedish, Arabic, Korean.' },
+  { show: false, question: 'Can I write a full blog post using MarketingCopy AI?', description: 'Yes! MarketingCopy AI offers powerful document writing AI features along with a word style editor. You can generate content for blogs on the document editor using the tools or by giving direct instructions/promots to our AI models.' },
+  { show: false, question: 'Is the copy generated original and plagiarism free?', description: 'MarketingCopy.ai generates original copy based on your input criteria. We will be releasing a built in plagiarism checker in the future as well.' },
+  { show: false, question: 'How do I report a bug or give feedback?', description: 'Once you log in, you can click the Help and Support in the header and click on Report a bug or Submit feedback and fill out the form in detail.' },
+  { show: false, question: 'How can I request new features?', description: 'Select Request a new feature option from the Help & Support menu and you can fill and submit your details for the feature request.' }
+];

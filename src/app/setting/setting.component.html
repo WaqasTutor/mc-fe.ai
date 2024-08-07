@@ -1,0 +1,315 @@
+<div class="page-header has-tab">
+  <h2 class="font-weight-normal color-darkest">Settings</h2>
+</div>
+
+<nz-tabset class="page-header-tab" [nzSelectedIndex]="selectedTabIndex">
+  <nz-tab (nzClick)="onTabClick('account')" nzTitle="Account">
+    <div class="container">
+      <nz-card nzTitle="Basic Infomation">
+        <form nz-form [formGroup]="profileSetting" nzLayout="vertical" class="login-form" #ngForm="ngForm"
+          (ngSubmit)="UpdateProfileSubmitForm()">
+          <!-- <div class="media align-items-center m-v-25">
+             <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="avatarUrl"></nz-avatar>
+            <nz-avatar [nzText]="userData.first_name[0].toUpperCase()+userData.last_name[0].toUpperCase()"
+              class="avatar-bg" [nzSize]="80">
+            </nz-avatar>
+            <div class="m-l-20 m-r-20">
+              <h5 class="m-b-5 font-size-18">{{userData.first_name+' '+userData.last_name}}</h5>
+              <p class="opacity-07 font-size-13 m-b-0">
+                {{userData.email}}
+              </p>
+            </div>
+             <nz-upload nzName="avatar" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
+              <button nz-button nzType="primary" class="custom-btn">
+                <span>Upload</span>
+              </button>
+            </nz-upload>
+          </div>-->
+          <div class="row">
+            <div class="col-md-6">
+
+              <nz-form-item>
+                <nz-form-label class="color-darker">First name</nz-form-label>
+                <nz-form-control>
+                  <input class="info-input" nz-input placeholder="First name" formControlName="first_name" />
+                </nz-form-control>
+                <label class="text-danger"
+                  *ngIf="ngForm.submitted&&profileSetting.hasError('required', 'first_name')">First
+                  name is
+                  required</label>
+              </nz-form-item>
+            </div>
+            <div class="col-md-6">
+              <nz-form-label class="color-darker">Last name</nz-form-label>
+              <nz-form-item>
+                <nz-form-control>
+                  <input class="info-input" nz-input placeholder="Last name" formControlName="last_name" />
+                </nz-form-control>
+                <label class="text-danger"
+                  *ngIf="ngForm.submitted&&profileSetting.hasError('required', 'last_name')">First
+                  name is
+                  required</label>
+              </nz-form-item>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <nz-form-label class="color-darker">Email</nz-form-label>
+              <nz-form-item>
+                <nz-form-control>
+                  <input class="info-input" nz-input placeholder="Email" type="email" formControlName="email" />
+                </nz-form-control>
+                <label class="text-danger" *ngIf="ngForm.submitted&&profileSetting.get('email').errors?.required">Email
+                  is
+                  required!</label>
+                <label class="text-danger"
+                  *ngIf="ngForm.submitted&&profileSetting.get('email').dirty&&profileSetting.get('email').errors?.email&&!profileSetting.get('email').errors?.required">
+                  Email is not correct!
+                </label>
+              </nz-form-item>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <nz-form-item>
+                <nz-form-control>
+                  <button nz-button class="ant-btn mc-btn mc-btn-secondary" [nzLoading]="loading">Save</button>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </form>
+      </nz-card>
+      <nz-card nzTitle="Authentication">
+        <form nz-form [formGroup]="changePWForm" #ngForm2="ngForm" (ngSubmit)="submitForm()">
+          <div class="row">
+            <div class="col-md-4">
+              <nz-form-label class="color-darker" nzFor="oldPassword">Current Password</nz-form-label>
+              <nz-form-item>
+                <nz-form-control [nzErrorTip]="ngForm2.submitted && 'Please input your current password!'">
+                  <input formControlName="oldPassword" nz-input type="password" placeholder="Current Password">
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="col-md-4">
+              <nz-form-label class="color-darker" nzFor="newPassword">New Password</nz-form-label>
+              <nz-form-item>
+                <!--<nz-form-control [nzErrorTip]="(ngForm2.submitted &&!changePWForm.get('oldPassword').errors?.required&&changePWForm.get('newPassword').errors?.required) ? 'Please input your New Password!' : (ngForm2.submitted&&!changePWForm.get('newPassword').errors?.required&&changePWForm.get('newPassword').dirty&&changePWForm.get('newPassword').errors?.pattern) && 'Password must contain a number, a special character and a capital letter!'">
+                  -->
+                <nz-form-control>
+                  <input formControlName="newPassword" nz-input type="password" placeholder="New Password">
+                  <label class="text-danger"
+                    *ngIf="ngForm2.submitted&&!changePWForm.get('oldPassword').errors?.required&&changePWForm.get('newPassword').errors?.required">Please
+                    input
+                    your
+                    New Password!</label>
+                  <label class="text-danger" *ngIf="ngForm2.submitted&&!changePWForm.get('newPassword').errors?.required&&
+                                  changePWForm.get('newPassword').dirty
+                                                      &&changePWForm.get('newPassword').errors?.pattern">
+                                                      Password must be a combination of numbers and letters!
+                  </label>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="col-md-4">
+              <nz-form-label class="color-darker" nzFor="confirmPassword">Confirm</nz-form-label>
+              <nz-form-item>
+                <nz-form-control>
+                  <input formControlName="confirmPassword" nz-input type="password" placeholder="Confirm Password">
+                  <label class="text-danger" *ngIf="ngForm2.submitted
+                  &&!changePWForm.get('oldPassword').errors?.required&&!changePWForm.get('newPassword').errors?.required
+                    &&changePWForm.get('confirmPassword').errors?.required">Please input
+                    your
+                    Confirm Password!</label>
+                  <label class="text-danger" *ngIf="(ngForm2.submitted
+                    &&!changePWForm.get('oldPassword').errors?.required&&!changePWForm.get('newPassword').errors?.required
+                    &&changePWForm.get('confirmPassword').dirty
+                    &&changePWForm.get('confirmPassword').errors?.error)">
+                    Password doesn't
+                    match!
+                  </label>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="col-md-12">
+              <nz-form-item>
+                <nz-form-control>
+                  <button  nz-button  class="ant-btn mc-btn mc-btn-secondary" [nzLoading]="loading" [disabled]="!changePWForm.valid">Update
+                    password</button>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </form>
+      </nz-card>
+
+    </div>
+  </nz-tab>
+  <nz-tab (nzClick)="onTabClick('billing')" nzTitle="Usage and Billing">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <nz-card nzTitle="Plan Details">
+            <div class="d-flex m-b-10">
+              <!-- <nz-tag [class]="'m-b-0 ant-avatar-green mr-0'" style="border-radius:7px;">Billing Cycle</nz-tag> -->
+              <nz-tag class="m-b-0 ant-avatar-green mr-0" [nzColor]="'geekblue'">
+                <span *ngIf="userUsage?.days_left_in_trial > 0">{{'Free trial ends in '+userUsage?.days_left_in_trial+' days' | titlecase}}</span>
+                <span class="text-capitalize" *ngIf="userUsage?.days_left_in_trial == 0">{{userUsage?.subscription_plan?.name}} plan</span>
+              </nz-tag>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div class="w-100">
+                <p class="color-darker w-100 font-size-20 d-flex align-items-center justify-content-between">
+                  <span class="m-r-5">{{userUsage?.total_words_in_plan | titlecase}} Word Credits on <span
+                      class="font-size-24 m-r-10 text-capitalize fw-900">{{userUsage?.subscription_plan?.name}} Plan <span class="mc-p font-size-20 fw-500"
+                        *ngIf="userUsage?.subscription_plan?.period_billing">({{userUsage?.subscription_plan?.period_billing | titlecase}}ly)</span></span></span>
+                  <button [disabled]="!userUsage" nz-button nzType="primary" nzSize="small"
+                    class="mc-btn mc-btn-tertiary" (click)="openModal()">Change Plan</button>
+                </p>
+                <nz-divider></nz-divider>
+                <p class="color-darker font-size-16">Billing cycle renews <span class="fw-900">{{userUsage?.billing_cycle_renewal}}</span></p>
+              </div>
+
+            </div>
+
+            <div class="d-flex">
+              <button nz-button nzType="default" nzSize="small" class="mc-btn mc-btn-secondary" (click)="editPayment()">Edit payment
+                details</button>
+            </div>
+          </nz-card>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-8 mx-auto">
+          <nz-card nzTitle="Usage" >
+            <div class="d-flex justify-content-between">
+              <p *ngIf="userUsage?.days_left_in_trial !== 0" class="color-darker mr-1">Word credits used so far <span
+                  class="color-darker ml-1 fw-900">{{userUsage?.words_generated_current_month}} / {{userUsage?.total_words_in_plan}}</span>
+              </p>
+              <p *ngIf="userUsage?.subscription_plan?.name === 'starter'" class="color-darker mr-1">Word credits used in this month <span
+                class="color-darker ml-1 fw-900">{{userUsage?.words_generated_current_month}} / {{userUsage?.total_words_in_plan}}</span>
+              <p *ngIf="userUsage?.subscription_plan?.name === 'pro'" class="color-darker mr-1">Word credits used in this month <span
+              class="color-darker ml-1 fw-900">{{userUsage?.words_generated_current_month}}</span>
+            </p>
+              <button *ngIf="userUsage?.days_left_in_trial !== 0" nz-button nzType="link" nzSize="small" class="mc-link big">Upgrade to a paid plan</button>
+            </div>
+            <nz-progress [nzPercent]="wordsPercentage" [nzStrokeColor]="'#6A35FF'" [nzShowInfo]="false"
+              nzStatus="active">
+            </nz-progress>
+
+          </nz-card>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <nz-card nzTitle="Invoices">
+            <div class="d-flex  justify-content-between">
+              <p class="color-darker">View your billing history</p>
+              <button [disabled]="!userUsage" nz-button class="mc-btn mc-btn-tertiary" nzType="primary" nzSize="small"
+                (click)="viewBillingHistory()">View billing history</button>
+            </div>
+          </nz-card>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <nz-card nzTitle="Cancel Subscription">
+            <p class="color-darker mc-p small">Cancelling your subscription will cause you to lose all your earned credits and saved content.</p>
+          <button nz-button nzType="primary" nzSize="small" class="ant-button-dangerous" nzDanger
+            (click)="showCancelSubscriptionForm()">Cancel Subscription</button>
+          </nz-card>
+
+          <nz-modal nzCentered nzWidth="660px" [(nzVisible)]="cancelSubscriptionFormVisible" nzTitle="Cancellation Survey" (nzOnOk)="submitCancelSubscriptionData()" [nzOkDisabled]="!cancel_subscription_form.valid" nzOkText="Submit" [nzClosable]="false" [nzCancelText]="null" [nzBodyStyle]="cancelSubscriptionBodyStyle">
+            <ng-container *nzModalContent>
+              <form [formGroup]="cancel_subscription_form">
+                <div class="single-form-field">
+                  <h5>How long had you been using MarketingCopy AI?</h5>
+                  <nz-radio-group formControlName="subscription_duration">
+                    <label nz-radio nzValue="less_than_month">Less than a month</label>
+                    <label nz-radio nzValue="1_6_month">1-6 months</label>
+                    <label nz-radio nzValue="1_3_year">1-3 years</label>
+                    <label nz-radio nzValue="over_3_year">Over 3 Years</label>
+                    <label nz-radio nzValue="never_used">Never used</label>
+                  </nz-radio-group>
+                </div>
+
+                <div class="single-form-field">
+                  <h5>How often did you use the subscription?</h5>
+                  <nz-radio-group formControlName="subscription_usage">
+                    <label nz-radio nzValue="once_week">Once a week</label>
+                    <label nz-radio nzValue="2_to_3_time_month">2 to 3 times a month</label>
+                    <label nz-radio nzValue="once_month" >Once a month</label>
+                    <label nz-radio nzValue="less_than_once_a_month" >Less than once a month</label>
+                  </nz-radio-group>
+                </div>
+
+                <div class="single-form-field">
+                  <h5>Overall, how satisfied were you with MarketingCopy AI?</h5>
+                  <nz-radio-group formControlName="suscription_satisfaction">
+                    <label nz-radio nzValue="very_atisfied">Very Satisfied</label>
+                    <label nz-radio nzValue="satisfied">Satisfied</label>
+                    <label nz-radio nzValue="neutral">Neutral</label>
+                    <label nz-radio nzValue="unsatisfied">Unsatisfied</label>
+                    <label nz-radio nzValue="very_unsatisfied">Very Unsatisfied</label>
+                  </nz-radio-group>
+                </div>
+
+                <div class="single-form-field">
+                  <h5>What was the primary reason for canceling your subscription?</h5>
+                  <nz-radio-group formControlName="cancel_reason">
+                    <label nz-radio nzValue="no_longer_needed">No longer needed it</label>
+                    <label nz-radio nzValue="didn't_meet_my_needs">It didn't meet my needs</label>
+                    <label nz-radio nzValue="found_alternative">Found an alternative</label>
+                    <label nz-radio nzValue="quality_less_than_expected">
+                      Quality was less than expected</label>
+                    <label nz-radio nzValue="very_unsatisfied">Very Unsatisfied</label>
+                  </nz-radio-group>
+                </div>
+
+                <div class="single-form-field">
+                  <h5>If other, please specify</h5>
+                  <nz-textarea-count [nzMaxCharacterCount]="100">
+                    <textarea rows="4" formControlName="other_reason" nz-input></textarea>
+                  </nz-textarea-count>
+                </div>
+
+                <div class="single-form-field">
+                  <h5>Would you use the product in the future?</h5>
+                  <nz-radio-group formControlName="future_usage">
+                    <label nz-radio nzValue="definitely">Definitely</label>
+                    <label nz-radio nzValue="probably">Probably</label>
+                    <label nz-radio nzValue="not_sure">Not Sure</label>
+                    <label nz-radio nzValue="probably_not">Probably Not</label>
+                    <label nz-radio nzValue="definitely_not">Definitely Not</label>
+                  </nz-radio-group>
+                </div>
+
+                <div class="single-form-field">
+                  <h5>Would you recommend our product to colleagues or contacts within your industry?</h5>
+                  <nz-radio-group formControlName="recommend">
+                    <label nz-radio nzValue="definitely">Definitely</label>
+                    <label nz-radio nzValue="probably">Probably</label>
+                    <label nz-radio nzValue="not_sure">Not Sure</label>
+                    <label nz-radio nzValue="probably_not">Probably Not</label>
+                    <label nz-radio nzValue="definitely_not">Definitely Not</label>
+                  </nz-radio-group>
+                </div>
+
+                <div class="single-form-field">
+                  <h5>What could we do to improve our product?</h5>
+                  <nz-textarea-count [nzMaxCharacterCount]="100">
+                    <textarea rows="4" formControlName="suggestions" nz-input></textarea>
+                  </nz-textarea-count>
+                </div>
+              </form>
+            </ng-container>
+          </nz-modal>
+        </div>
+      </div>
+    </div>
+  </nz-tab>
+</nz-tabset>

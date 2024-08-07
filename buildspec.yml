@@ -1,0 +1,47 @@
+version: 0.2
+
+env:
+  variables:
+    ENV_TARGET: $ENV_TARGET
+
+phases:
+  pre_build:
+    commands:
+      - codebuild-breakpoint
+      - echo Logging into Amazon ECR ...
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - REPOSITORY_URI_EXTENSION=.dkr.ecr.eu-west-2.amazonaws.com/frontend-service
+      - REPOSITORY_URI=$ACCOUNT_ID$REPOSITORY_URI_EXTENSION
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=marketing-copy-frontend-service-$COMMIT_HASH
+  build:
+    commands:
+      - echo Building app with the following environment...
+      - echo $ENV_TARGET
+      - echo Logging in to docker hub
+      - docker login --username novai --password cbd82f65-489b-4d9e-9bc3-31abe184f5cd
+      - echo Build started on `date`
+      - echo Building the docker image
+      - echo $IMAGE_TAG
+      - docker build -t $REPOSITORY_URI:frontend . --build-arg ENV_TARGET=$ENV_TARGET
+      - docker tag $REPOSITORY_URI:frontend $REPOSITORY_URI:$IMAGE_TAG
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the docker images...
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions files
+      - printf '[{"name":"nginx","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '{"Parameters":{"ImageNginx":"%s"}}' $REPOSITORY_URI:$IMAGE_TAG > imageuri.json
+      - printf '{"Parameters":{"ImageNginx":"%s", "NetworkStackName":"infrastructure", "ContainerPort":"443", "Protocol":"HTTPS" }}' $REPOSITORY_URI:$IMAGE_TAG > params.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
+    - service.yml
+    - imageuri.json
+    - params.json
+
+  discard-paths: yes

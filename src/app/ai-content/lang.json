@@ -1,0 +1,132 @@
+[
+    {
+        "code": "de",
+        "language": "German",
+        "flag": "assets/images/icons/germany-circular.png"
+    },
+    {
+        "code": "en",
+        "language": "English",
+        "flag": "assets/images/icons/usa-circular.png"
+    },
+    {
+        "code": "fr",
+        "language": "French",
+        "flag": "assets/images/icons/france-circular.png"
+    },
+    {
+        "code": "it",
+        "language": "Italian",
+        "flag": "assets/images/icons/italy-circular.png"
+    },
+    {
+        "code": "ja",
+        "language": "Japanese",
+        "flag": "assets/images/icons/japan-circular.png"
+    },
+    {
+        "code": "es",
+        "language": "Spanish",
+        "flag": "assets/images/icons/spain-circular.png"
+    },
+    {
+        "code": "nl",
+        "language": "Dutch",
+        "flag": "assets/images/icons/netherlands-circular.png"
+    },
+    {
+        "code": "pl",
+        "language": "Polish",
+        "flag": "assets/images/icons/poland-circular.png"
+    },
+    {
+        "code": "pt",
+        "language": "Portugese",
+        "flag": "assets/images/icons/portugal-circular.png"
+    },
+    {
+        "code": "ru",
+        "language": "Russian",
+        "flag": "assets/images/icons/russian-federation-circular.png"
+    },
+    {
+        "code": "zh",
+        "language": "Chinese simplified",
+        "flag": "assets/images/icons/china-circular.png"
+    },
+    {
+        "code": "bg",
+        "language": "Bulgarian",
+        "flag": "assets/images/icons/bulgaria-circular.png"
+    },
+    {
+        "code": "cs",
+        "language": "Czech",
+        "flag": "assets/images/icons/czech-republic-circular.png"
+    },
+    {
+        "code": "da",
+        "language": "Danish",
+        "flag": "assets/images/icons/denmark-circular.png"
+    },
+    {
+        "code": "et",
+        "language": "Estonian",
+        "flag": "assets/images/icons/estonia-circular.png"
+    },
+    {
+        "code": "fi",
+        "language": "Finnish",
+        "flag": "assets/images/icons/finland-circular.png"
+    },
+    {
+        "code": "el",
+        "language": "Greek",
+        "flag": "assets/images/icons/greece-circular.png"
+    },
+    {
+        "code": "hu",
+        "language": "Hungarian",
+        "flag": "assets/images/icons/hungary-circular.png"
+    },
+    {
+        "code": "lv",
+        "language": "Latvian",
+        "flag": "assets/images/icons/latvia-circular.png"
+    },
+    {
+        "code": "lt",
+        "language": "Lithuanian",
+        "flag": "assets/images/icons/lithuania-circular.png"
+    },
+    {
+        "code": "ro",
+        "language": "Romanian",
+        "flag": "assets/images/icons/romania-circular.png"
+    },
+    {
+        "code": "sk",
+        "language": "Slovak",
+        "flag": "assets/images/icons/slovakia-circular.png"
+    },
+    {
+        "code": "sl",
+        "language": "Slovenian",
+        "flag": "assets/images/icons/slovenia-circular.png"
+    },
+    {
+        "code": "sv",
+        "language": "Swedish",
+        "flag": "assets/images/icons/sweden-circular.png"
+    },
+    {
+        "code": "ar",
+        "language": "Arabic",
+        "flag": "assets/images/icons/south-korea-circular.png"
+    },
+    {
+        "code": "ko",
+        "language": "Korean",
+        "flag": "assets/images/icons/south-korea-circular.png"
+    }
+]

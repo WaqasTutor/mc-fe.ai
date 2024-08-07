@@ -1,0 +1,57 @@
+<div class="page-header-transparent">
+    <div class="row align-items-md-center">
+        <div class="col-xl-6 col-lg-5 col-md-5 flex-grow-1">
+            <h2 class="header-text mc-h2 color-darkest m-0 pt-2">Trash</h2>
+        </div>
+    </div>
+    <nz-tabset class="m-t-25" [nzSelectedIndex]="selectedTabIndex">
+        <nz-tab (nzClick)="onTabClick('contents')" nzTitle="Contents">
+            <div class="container-fluid p-0">
+                <div class="row" *ngIf="contents?.length==0||contLoading">
+                  <div class="col-12 text-center" *ngIf="contLoading">
+                    <i nz-icon [nzType]="'loading'" class="mt-5"></i>
+                  </div>
+                </div>
+                <div class="row align-items-center" *ngIf="!contLoading">
+                  <nz-card *ngIf="contents?.length <= 0" class="col-12 card-border-radius">
+                    <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg" [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                      <ng-template #contentTpl>
+                          <span>
+                            No Content
+                          </span>
+                      </ng-template>
+                    </nz-empty>
+                  </nz-card>
+                  <ng-container *ngIf="contents?.length > 0">
+                    <div *ngFor="let item of contents | slice: contMin: contMax"
+                      class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                      <app-content-box [contentData]="item" [iconOption]="'trash'" [open]="openContentId"
+                        (remove)="removeElement($event)">
+                      </app-content-box>
+                    </div>
+                    <nz-pagination [nzPageIndex]="contPage" *ngIf="contents?.length > contPageSize" [nzTotal]="contents?.length"
+                      class="width-fit mx-auto" [nzPageSize]="contPageSize" (nzPageIndexChange)="nzContPageIndexChange($event);"></nz-pagination>
+                  </ng-container>
+                </div>
+              </div>
+        </nz-tab>
+        <nz-tab (nzClick)="onTabClick('billing')" nzTitle="Documents">
+          <nz-card class="card-border-radius" [nzBodyStyle]="{'padding-top':'10px', 'padding-left': '0px', 'padding-right': '0px', 'padding-bottom': '0px'}">
+          <div class="container-fluid p-0 pb-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <ng-container>
+                        <app-document-table [min]="docMin" [max]="docMax" [documentList]="documentList" [search]="null"></app-document-table>
+                    </ng-container>
+                  </div>
+                  <div  *ngIf="documentList.length > docPageSize" class="col-12 p-b-10 m-t-20">
+                    <nz-pagination class="mx-auto width-fit" [nzPageIndex]="docPage" [nzTotal]="documentList?.length"
+                      class="width-fit mx-auto" [nzPageSize]='docPageSize' (nzPageIndexChange)="nzDocPageIndexChange($event);">
+                    </nz-pagination>
+                  </div>
+              </div>
+              </div>
+            </nz-card>
+        </nz-tab>
+    </nz-tabset>
+</div>

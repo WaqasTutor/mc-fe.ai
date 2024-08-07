@@ -1,0 +1,33 @@
+<div class="ant-modal-header d-flex align-items-center justify-content-between p-0 set-head">
+  <div class="ant-modal-title d-flex align-items-center">
+    <nz-avatar [nzSrc]="content.tool.logo" nzSize="30" class="p-1 mr-2"></nz-avatar>
+    <h4 class="mc-h4 color-darkest fw-500 m-b-0">{{content.tool.name}}</h4>
+  </div>
+  <div class="d-flex align-items-center icons">
+    <p *ngIf="conSave" class="con-save color-dark mc-p small fw-normal mr-3 m-b-0">
+      Content Saved
+    </p>
+    <i-feather name="save" *ngIf="title === 'favourites' || !title" nz-tooltip [nzTooltipTitle]="!conSave?'Save content':'Saved'"
+        (click)="!content.saved && editContent(); $event.stopPropagation()" class="pointer stroke-dark feather-size-16 mr-2" [ngClass]="{'stroke-golden': content.saved && content.saved !== status.notSelected}"></i-feather>
+    <i-feather name="copy" nz-tooltip [nzTooltipTitle]="!copied?'Copy':'Copied'"
+        (click)="copy(); $event.stopPropagation()" class="pointer feather-size-16 mr-2 stroke-dark" [ngClass]="{'fill': copied}"></i-feather>
+        <i-feather name="trash-2" nz-tooltip [nzTooltipTitle]="trashed?contentStatus(content.trashed)?'Removing from trash':'Adding to trash'
+        :contentStatus(content.trashed)?'Remove from trash':'Add to trash'"
+        (click)="deleteItem()" class="pointer feather-size-16 mr-2" [ngClass]="{'stroke-red': content.trashed && content.trashed !== status.notSelected}" *ngIf="title==='trash'"></i-feather>
+        <i-feather name="flag" nz-tooltip [nzTooltipTitle]="flag?contentStatus(content.flagged)?'Unflagging':'Flagged':contentStatus(content.flagged)?'Unflag':'Flag'"
+        (click)="addToFlag()" class="pointer feather-size-16 mr-2" [ngClass]="{'fill-purple': content.flagged && content.flagged !== status.notSelected}" *ngIf="title==='flagged'"></i-feather>
+    <i-feather name="star" nz-tooltip [nzTooltipTitle]="favorite?contentStatus(content.is_favourite)?'Removing from Favorite':'Favourite':contentStatus(content.is_favourite)?'Remove from Favourite':'Favourite'"
+        (click)="favoriteItem()" class="pointer feather-size-16 mr-2" [ngClass]="{'fill-golden': content.is_favourite && content.is_favourite !== status.notSelected, 'stroke-dark': !content.is_favourite || content.is_favourite === status.notSelected}" *ngIf="!title||title==='favourites'"></i-feather>
+  </div>
+</div>
+
+<div class="modal-content m-t-25">
+  <textarea contenteditable="true" class="editable color-darkest mc-p normal m-b-0 p-20"
+    [(ngModel)]="modalText" (blur)="editContent()">
+  </textarea>
+</div>
+
+<div class="absolute color-dark mc-p small d-flex align-items-center justify-content-start">
+  <i-feather name="clock" class="d-flex align-items-center justify-content-center stroke-dark feather-size-16 m-r-10"></i-feather>
+  <p class="m-b-0 inline-block ">Last updated {{timeAgo(content.updated_on)}}</p>
+</div>

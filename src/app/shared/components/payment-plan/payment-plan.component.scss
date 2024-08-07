@@ -1,0 +1,72 @@
+.faq {
+  .list {
+    list-style-type: none;
+    li {
+      border-bottom: 1px solid #e6eaf5;
+    }
+    .grow {
+      color: #7b88a8;
+      font-size: 18px;
+      line-height: 1.4;
+      font-weight: 400;
+      transition: all 0.5s linear;
+      -moz-transition: all 0.5s linear;
+      -ms-transition: all 0.5s linear;
+      -o-transition: all 0.5s linear;
+      -webkit-transition: all 0.5s linear;
+      height: 0;
+      overflow: hidden;
+    }
+    .show {
+      height: auto;
+      opacity: 1;
+    }
+    .question {
+      font-size: 18px;
+      font-weight: 600;
+      .icon {
+        opacity: 0.5;
+        -webkit-transition: all 0.8s 0s ease, all 0.5s 0s ease;
+        -moz-transition: all 0.8s 0s ease, all 0.5s 0s ease;
+        -o-transition: all 0.8s 0s ease, all 0.5s 0s ease;
+        transition: all 0.8s 0s ease, all 0.5s 0s ease;
+      }
+      .icon-rotate {
+        opacity: 1;
+        rotate: 45deg;
+      }
+    }
+  }
+}
+.plans {
+  border-radius: 14px;
+  box-shadow: -10px 117px 118px 0 rgb (206 212 224 / 12);
+  ul {
+    li {
+      color: #2d3958;
+      font-size: 15px;
+    }
+  }
+}
+.error-card {
+  -webkit-transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  opacity: 1;
+  border-radius: 1.5rem;
+  nz-avatar {
+    line-height: 100px;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+    border-radius: 16px;
+  }
+  .close {
+    position: absolute;
+    top: 5px;
+    right: 16px;
+  }
+}

@@ -1,0 +1,42 @@
+<div class="container-fluid p-t-80 p-b-80 welcome" *ngIf="pageStatus!==paymentStatus.success">
+  <div class="row" *ngIf="pageStatus==paymentStatus.cancel">
+    <div class="col-lg-4 col-md-8 col-12 m-auto">
+      <nz-alert nzType="error" nzCloseable nzMessage="Payment Cancelled"
+        nzDescription="Unfortunately the payment was cancelled, please try again.">
+      </nz-alert>
+    </div>
+  </div>
+  <div class="text-center m-t-30 m-b-40">
+    <h1 class="mc-h1 color-darkest">Subscription plans</h1>
+    <p class="w-45 m-h-auto m-b-30 mc-p normal color-darker">Simple pricing for everyone. Always know what you'll pay.</p>
+  </div>
+
+  <app-payment-plan [modal]="false"></app-payment-plan>
+  <div class="text-center m-t-30 m-b-30">
+    <h1 class="mc-h1 color-darkest">FAQ</h1>
+    <p class="w-45 m-h-auto m-b-30 mc-p normal color-darker">If you are hesitating, do not worry - we are here to explain everything you might want to know. Let us help!</p>
+  </div>
+  <div class="row faq">
+    <div class="col-8 m-auto">
+      <ul class="list p-2">
+        <li *ngFor="let q of data;let i=index;">
+          <div class="p-t-20 p-b-20 question d-flex align-items-center" (click)="q.show=!q.show;growDiv(i);">
+            <span class="flex-grow-1 mc-p large m-b-0 color-darkest">{{q.question}} </span>
+            <i class="pull-right icon color-darkest" [ngClass]="{'icon-rotate':q.show}" nz-icon nzType="plus-circle"
+              nzTheme="outline"></i>
+          </div>
+          <div [id]="'grow'+i" class="grow mc-p small m-b-0">
+            <p [class]="'p-t-20 p-b-20 show measuringWrapper'+i">{{q.description}} </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="h-100 d-flex justify-content-center align-items-center" style="width: 100%;"
+  *ngIf="pageStatus==paymentStatus.success">
+  <div class="text-center">
+    <i nz-icon [nzType]="'loading'" class="mt-5"></i>
+    <p class="onboarding-sub-heading ">Getting Your Dashboard Ready</p>
+  </div>
+</div>

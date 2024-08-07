@@ -1,0 +1,83 @@
+<nz-empty *ngIf="documentList?.length <= 0" nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg" [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+  <ng-template #contentTpl>
+      <span>
+        No Documents
+      </span>
+  </ng-template>
+</nz-empty>
+<nz-table #table *ngIf="documentList?.length > 0" class="col-12 p-0" [nzData]="documentList" [nzFrontPagination]="false">
+    <thead>
+      <tr>
+      <th *ngFor="let column of columns" class="mc-h5 color-darker fw-500" [ngClass]="{ 'p-l-60': !column.centered, 'text-center': column.centered }" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn" [nzSortDirections]="column.sortDirections">
+        {{ column.title }}
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let document of table.data | slice: min:max | search: 'name': search as count; let index = index">
+        <td class="hover-pointer pd-l d-flex" [routerLink]="search === null ? [] : [document.uuid, 'edit']">
+          <a class="my-auto">
+            <!-- <nz-avatar nzIcon="file-text" class=" d-inline-flex align-items-center justify-content-center" nzSize="default"></nz-avatar>  -->
+            <span class="d-inline-flex align-items-center justify-content-center f-icon-circle">
+              <i-feather name="file-text" class="feather-size-16"></i-feather>
+            </span>
+          </a>
+          <a class="my-auto pl-3 pd-l">
+            {{ document.name }}
+          </a>
+        </td>
+        <td class="text-center hover-pointer" [routerLink]="search === null ? [] : [document.uuid, 'edit']">
+          <a class="my-auto">
+            {{ toDate(document.created_on) }}
+          </a>
+        </td>
+        <td class="text-center hover-pointer" [routerLink]="search === null ? [] : [document.uuid, 'edit']">
+          <a class="my-auto">
+            {{ toDate(document.updated_on) }}
+          </a>
+        </td>
+        <td class="hover-pointer" [routerLink]="search === null ? [] : [document.uuid, 'edit']">
+          <a class="my-auto d-flex align-items-center justify-content-center">
+            <nz-avatar *ngIf="userName" class="nz-text px-3" [nzShape]="'square'" [nzText]="userName"></nz-avatar>
+          </a>
+        </td>
+        <td class="text-center">
+          <a class="mc-p mb-0 small color-dark" nz-dropdown nzPlacement="bottomRight" nzTrigger="click" [nzDropdownMenu]="projectListSetting">
+            <i class="font-size-20" nz-icon nzType="ellipsis" theme="outline"></i>
+          </a>
+          <nz-dropdown-menu #projectListSetting="nzDropdownMenu">
+            <ul *ngIf="document.trashed == '1'" nz-menu nzSelectable>
+              <li nz-menu-item>
+                <a (click)="removeFromTrash(document)">
+                  <i nz-icon nzType="rollback" theme="outline"></i>
+                  <span class="m-l-10">Put back</span>
+                </a>
+              </li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item>
+                <a (click)="permanetDelete(document)">
+                  <i nz-icon nzType="delete" theme="outline"></i>
+                  <span class="m-l-10">Remove from trash</span>
+                </a>
+              </li>
+            </ul>
+            <ul *ngIf="document.trashed == '0'" nz-menu nzSelectable>
+              <li nz-menu-item>
+                <a (click)="onEdit(document)">
+                  <i nz-icon nzType="edit" theme="outline"></i>
+                  <span class="m-l-10">Edit</span>
+                </a>
+              </li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item>
+                <a (click)="onDelete(document)">
+                  <i nz-icon nzType="delete" theme="outline"></i>
+                  <span class="m-l-10">Delete</span>
+                </a>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>

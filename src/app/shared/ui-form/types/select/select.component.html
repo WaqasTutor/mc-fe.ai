@@ -1,0 +1,3 @@
+<nz-select class="mc-select d-flex align-items-center w-100" [nzPlaceHolder]="to.placeholder" [formControl]="formControl" [ngClass]="{'select-error': showError && options.parentForm.submitted}">
+    <nz-option *ngFor="let opt of to.options" [nzValue]="opt.val" [nzLabel]="opt.val | titlecase"></nz-option>
+</nz-select>

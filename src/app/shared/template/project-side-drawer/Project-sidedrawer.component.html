@@ -1,0 +1,25 @@
+<div class="d-flex flex-column h-100">
+  <div class="border-bottom p-24">
+    <nz-input-group [nzPrefix]="prefixTemplate">
+      <input type="text" nz-input placeholder="Search" [(ngModel)]="search">
+      <ng-template #prefixTemplate><i nz-icon nzType="search"></i></ng-template>
+    </nz-input-group>
+  </div>
+  <div class="project-info">
+    <div class="text-center" *ngIf="!projects">
+      <i nz-icon [nzType]="'loading'" class="mt-5"></i>
+    </div>
+    <ng-container *ngFor="let item of projects | search:'name':search as count ;  let i=index">
+      <div class="d-flex m-b-30" (click)="selectProject(item)">
+        <nz-avatar nzIcon="check" class="ant-avatar-green" *ngIf="item.selected">
+        </nz-avatar>
+        <nz-avatar [nzText]="item.name[0]" [class]="'color-darker '+colors[i%(colors.length)]" *ngIf="!item.selected">
+        </nz-avatar>
+        <div class="m-l-15">
+          <a class="text-dark m-b-0 font-weight-semibold">{{item.name}}</a>
+          <p class="m-b-0 text-muted font-size-13">Last updated {{timeAgo(item.created_on)}}</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

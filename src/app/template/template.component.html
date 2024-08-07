@@ -1,0 +1,90 @@
+<div class="page-header-transparent p-b-10">
+  <div class="row">
+    <div class="col-lg-11 mx-auto">
+      <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-md-8 my-auto m-b-10 d-flex flex-column align-items-start justify-content-center">
+                  <h2 class="ml-0 h-none header-text mc-h2 color-darkest m-b-0">Tools</h2>
+            </div>
+            <div class="col-md-4 col-sm-12 d-flex align-items-md-end justify-content-end my-auto m-b-10">
+              <div class="text-md-right d-flex">
+                <nz-input-group [nzPrefix]="searchPrefix" class="flex-grow-1 header-search">
+                  <input type="text" nz-input class="" placeholder="Search Tools" [(ngModel)]="searchInput">
+                </nz-input-group>
+                <ng-template #searchPrefix>
+                  <i class="opacity-04" nz-icon nzType="search"></i>
+                </ng-template>
+                <button nz-button class="ml-2 mc-btn mc-btn-tertiary page-header-btn" nzTooltipPlacement="bottomCenter"
+                  nzTooltipTitle="Request a new tool" (click)="modalSHow=true" nz-tooltip><i-feather name="edit" class="feather-size-16"></i-feather></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 m-t-10">
+          <nz-tag *ngIf="tags.length !== 0" [nzColor]=" checkedTag == 'All' ? '#6A35FF' : 'rgba(230, 234, 245, 0.25)' " [ngClass]="checkedTag === 'All' ? 'active' : 'in-active'" class="pointer tag"
+            (click)="checkedTag == 'All' ? checkedTag = '':checkedTag = 'All'">
+            All
+          </nz-tag>
+          <!-- <nz-tag *ngIf="tags.length !== 0" [nzColor]=" checkedTag == 'Favourites' ? '#108ee9' : '' " class="pointer tag"
+        (click)="checkedTag == 'Favourites' ? checkedTag = '' : checkedTag = 'Favourites'">
+        Favourites
+      </nz-tag> -->
+          <nz-tag [nzColor]=" tag == checkedTag ? '#6A35FF':'rgba(230, 234, 245, 0.25)' " [ngClass]="checkedTag === tag ? 'active' : 'in-active'" class="pointer tag"
+            (click)="tag==checkedTag?checkedTag='':checkedTag=tag" *ngFor="let tag of tags">{{tag}}
+          </nz-tag>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid p-4">
+  <div class="row">
+    <div class="col-lg-11 mx-auto">
+      <div class="row">
+        <div class="col-12 text-center" *ngIf="!toolList">
+          <i nz-icon [nzType]="'loading'" class="mt-5"></i>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-mc-5"
+          *ngFor="let tool of filterList(checkedTag)| search:'name':searchInput as count">
+          <nz-card class="card-view pointer">
+            <i (click)="changeStatus(tool, tool.favourite)" nz-icon nzType="star"
+              [nzTheme]="tool.favourite ? 'fill' : 'outline'" class="tool-i font-size-24"
+              [ngClass]="{'color-golden': tool.favourite, 'color-dark': !tool.favourite}" nzTooltipPlacement="topLeft"
+              [nzTooltipTitle]="!tool.favourite ? 'Add to favourites': 'Remove from favourites'" nz-tooltip></i>
+            <a [routerLink]="['/tools/view/',tool.uuid]" class="d-flex justify-content-between">
+              <div class="media">
+                <nz-avatar [nzSize]="35" [nzSrc]="tool.logo"></nz-avatar>
+              </div>
+            </a>
+            <a [routerLink]="['/tools/view/',tool.uuid]">
+              <h4 class="m-t-10 m-b-0 mc-h4 color-darkest fw-500">{{tool.name}}</h4>
+            </a>
+
+            <a [routerLink]="['/tools/view/',tool.uuid]">
+              <p class="m-t-10 h-min m-b-0 mc-p normal color-darker font-size-15">{{tool.description}}</p>
+            </a>
+          </nz-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #closeIcon>
+    <i-feather name="x-circle" class="feather-size-20 color-dark"></i-feather>
+  </ng-template>
+  <nz-modal [(nzVisible)]="modalSHow"  nzTitle="Request a new tool" (nzOnCancel)="modalSHow=false;form.reset()" [nzCloseIcon]="closeIcon">
+    <form nz-form [formGroup]="form">
+      <div *nzModalContent>
+        <p>Please enter details of the tool that you would like to request along with sample outputs that you would like
+          the tool to generate.</p>
+        <nz-form-control>
+          <textarea formControlName="request" class="mt-2 m-b-0 p-b-15 modal-text-area" nz-input rows="2"
+            placeholder="Enter request for new tool"></textarea>
+        </nz-form-control>
+      </div>
+      <div *nzModalFooter>
+        <button nz-button class="login-form-button login-form-margin mc-btn mc-btn-secondary"
+          [nzLoading]="createFormLoading" [nzType]="'default'" type="submit" (click)="submitForm()">Submit Request</button>
+      </div>
+    </form>
+  </nz-modal>

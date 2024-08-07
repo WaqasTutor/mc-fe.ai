@@ -1,0 +1,159 @@
+<perfect-scrollbar class="side-nav" [ngClass]="{'nav-fixer': docEditor == null || docEditor == false}" sideNav>
+  <div class="sidenav-cont">
+    <ul class="ant-menu ant-menu-root ant-menu-inline side-nav-menu" [ngClass]="{
+    'ant-menu-inline-collapsed': isFolded,
+    'ant-menu-dark' : isSideNavDark
+}">
+      <li class="ant-menu-item ant-menu-submenu-open m-0 p-0" *ngFor="let item of menuItems; let index = index"
+        routerLinkActive="ant-menu-item-selected" [ngClass]="{'not': item.submenu && SubActive, 'no-active': item.submenu}">
+        <a [routerLink]="item.path" class="d-flex align-items-center" (click)="SubActive && SubActive = null; openMenu(item); closeMobileMenu()">
+          <span class="icon-container">
+            <img class="sidenav-item-icon" src="{{item.icon}}.svg" alt="">
+            <img class="sidenav-item-icon-active" src="{{item.icon}}_active.svg" alt="">
+          </span>
+          <span class="font-size-16 flex-grow-1">{{item.title}}</span>
+          <!--<i *ngIf="item.submenu?.length !== 0" class="mc-arrow" [ngClass]="{'up': SubActive || item.opened}"></i>-->
+          <i *ngIf="item.submenu?.length !== 0" class="mc-arrow" ></i>
+        </a>
+        <ul class="ant-menu ant-menu-inline ant-menu-sub m-0 p-0" [ngClass]="{'h-0 overflow-hidden': !SubActive}">
+          <li *ngFor="let subitem of item.submenu; let i = index;" class="ant-menu-item m-0 p-0"
+            routerLinkActive="ant-menu-item-selected" >
+            <a [routerLink]="subitem.path" (click)="SubActive = true" class="d-flex align-items-center" (click)="closeMobileMenu()">
+              <span class="icon-container sub">
+                <img class="sidenav-item-icon" src="{{subitem.icon}}.svg" alt="">
+                <img class="sidenav-item-icon-active" src="{{subitem.icon}}_active.svg" alt="">
+              </span>
+              <span class="ml-3 font-size-16 fw-400">{{subitem.title}}</span>
+            </a>
+          </li>
+        </ul>
+        <!-- <div *ngIf="item.addButton" class="menu-add-btn" (click)="onAdd(item.path)">
+          <i nz-icon nzType="plus" class="font-size-16" nzTheme="outline"></i>
+        </div> -->
+      </li>
+       <!-- <li class="ant-menu-item" routerLinkActive="ant-menu-item-selected" [routerLinkActiveOptions]="{exact: true}">
+<a (click)="closeMobileMenu()" [routerLink]="['content']">
+<i nz-icon nzType="bar-chart" theme="outline"></i>
+<span>Ai content</span>
+</a>
+<button nz-button nzShape="circle" class="btn-circle" (click)="navigate()">+</button>
+
+</li> -->
+      <!-- <li class="ant-menu-item" routerLinkActive="ant-menu-item-selected" [routerLinkActiveOptions]="{exact: true}">
+<a routerLink="test" (click)="closeMobileMenu()" [routerLink]="['content/favourites']">
+<i class="fas fa-circle text-warning circle-icon"></i>
+<span *ngIf="!isFolded">Favorite</span>
+</a>
+</li>
+<li class="ant-menu-item" routerLinkActive="ant-menu-item-selected" [routerLinkActiveOptions]="{exact: true}">
+<a routerLink="test" (click)="closeMobileMenu()" [routerLink]="['content/flagged']">
+
+<i class="fas fa-circle text-danger circle-icon"></i>
+<span *ngIf="!isFolded">Flagged</span>
+</a>
+</li>
+<li class="ant-menu-item" routerLinkActive="ant-menu-item-selected" [routerLinkActiveOptions]="{exact: true}">
+<a routerLink="test" (click)="closeMobileMenu()" [routerLink]="['content/trash']">
+<i class="fas fa-circle text-secondary circle-icon"></i>
+<span *ngIf="!isFolded">Trashed</span>
+</a>
+</li> -->
+      <!-- <li class="ant-menu-item project-menu" (click)="searchToggle()" routerLinkActive="ant-menu-item-selected">
+<div class="project-menu-item">
+<a (click)="closeMobileMenu()" *ngIf="isFolded">
+  {{selectedProject?.name[0]}}
+</a>
+<div class="project-menu-item-button" *ngIf="!isFolded">
+  <p class="main">Project</p>
+  <p class="description">{{selectedProject?.name}}</p>
+</div>
+<div class="project-menu-button-icon" *ngIf="!isFolded">
+  <span class="my-icon"></span>
+</div>
+</div>
+</li> -->
+    </ul>
+    <div class="footer-menu" [ngClass]="{'collapsed-footer':isFolded}">
+      <div class="flex-grow-1">
+        <ul>
+          <!-- <li> -->
+          <!--  [ngClass]="{'text-center':isFolded}" -->
+          <!-- <i nz-icon nzType="redo" nzTheme="outline" [ngClass]="{'m-r-10':!isFolded}"></i><span
+              *ngIf="!isFolded">Resources</span>
+          </li> -->
+          <li (click)="openChat()">
+            <img class="m-r-30" src="assets/images/icons/phone_call.svg" alt="">
+            <span *ngIf="!isFolded" class="font-size-16">Chat with us</span>
+          </li>
+          <li class="align-center"(click)="typeFormOpen=true; iframeLoading=true;url='https://1lz8ahoedmv.typeform.com/to/Rrgf8ZQU'">
+            <!--<i-feather name="message-square" class="feather-size-20 m-r-30"></i-feather>-->
+            <img class="m-r-30" src="assets/images/icons/message-square.svg" alt="">
+            <span *ngIf="!isFolded" class="font-size-16">Submit Feedback</span>
+          </li>
+          <!-- <li  (click)="goToAffiliateProgram()">
+            <img class="m-r-30" src="assets/images/icons/dollar-sign.svg" alt="">-->
+            <!-- <i nz-icon nzType="dollar" nzTheme="outline" class="font-size-20" [ngClass]="{'m-r-10':!isFolded}"></i> -->
+            <!--<span *ngIf="!isFolded" class="font-size-16">Affiliate
+              Program</span>
+          </li> -->
+        </ul>
+        <!-- <div class="btn-group" *ngIf="!isFolded">
+          <button nz-button class="btn linear-background">Contact</button>
+          <button nz-button class="btn middle-btn">Privacy</button>
+          <button nz-button class="btn ">Term</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</perfect-scrollbar>
+<ng-template #closeIcon>
+  <i-feather name="x-circle" class="feather-size-20 stroke-darker"></i-feather>
+</ng-template>
+<nz-drawer [nzWidth]="380" [nzTitle]="name" [nzVisible]="searchVisible" nzPlacement="right" (nzOnClose)="searchToggle()" [nzCloseIcon]="closeIcon">
+  <app-project-side-drawer *nzDrawerContent (projectSelected)="searchToggle()"></app-project-side-drawer>
+</nz-drawer>
+<ng-template #name>
+  <div class="search-drawer-title d-flex">
+    <div>
+      Projects<button nz-button class="mc-btn mc-btn-tertiary" (click)="modalSHow=!modalSHow">+</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #closeIcon>
+  <i-feather name="x-circle" class="feather-size-20 stroke-dark"></i-feather>
+</ng-template>
+<nz-modal [(nzVisible)]="modalSHow" [nzTitle]="edit?'Edit Project':'Add Project'"
+  (nzOnCancel)="modalSHow=false; form.reset(); resetEdit();" [nzCloseIcon]="closeIcon">
+  <form nz-form [formGroup]="form">
+    <div *nzModalContent>
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="form.get('name').errors?.maxlength ? 'Project name cannot be greater than 25 characters': form.get('name').errors?.required && 'Project name is required'">
+          <label class="color-darker form-labels">Project Name *</label>
+          <input type="text" class="my-2" nz-input formControlName="name" placeholder="Name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="m-b-0">
+        <nz-form-control [nzErrorTip]="form.get('description').errors?.maxlength && 'Description cannot be greater than 100 characters'">
+          <label class="color-darker form-labels">Description</label>
+          <textarea formControlName="description" class="my-2" nz-input rows="2"
+            placeholder="What's this project about?" style="resize: none;"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div *nzModalFooter>
+      <button nz-button *ngIf="!edit" class="login-form-button login-form-margin mc-btn mc-btn-secondary" [nzLoading]="createFormLoading"
+
+         type="submit" (click)="submitForm()">Save</button>
+      <button nz-button *ngIf="edit" class="login-form-button login-form-margin mc-btn mc-btn-secondary" [nzLoading]="createFormLoading"
+         type="submit" (click)="editProject()">Update</button>
+    </div>
+  </form>
+</nz-modal>
+
+<div class="overlay" *ngIf="typeFormOpen">
+  <div class="close-btn flex-grow-1">
+    <i (click)="typeFormOpen=!typeFormOpen" nz-icon nzType="close" nzTheme="outline" class="pull-right text-white margin-right m-t-10"></i>
+  </div>
+
+  <iframe class="payment-form-modal conatainer" [src]="sensitizeUrl(url)"></iframe>
+</div>

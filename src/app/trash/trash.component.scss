@@ -1,0 +1,35 @@
+.project-menu {
+    background: #ffffff;
+    border: 1px solid #e6eaf5;
+    box-sizing: border-box;
+    border-radius: 6px;
+    max-width: 100%;
+    .left {
+      max-width: 75%;
+    }
+    .my-icon {
+      float: right;
+      transform: rotate(90deg);
+      &::after,
+      &::before {
+        color: #7b88a8;
+        font-size: 14px;
+        font-weight: bold;
+      }
+  
+  
+      &::after {
+        margin-left: 2.5px;
+        content: ">";
+      }
+      &::before {
+        margin-right: 2.5px;
+        content: "<";
+      }
+    }
+}
+
+::ng-deep .ant-tabs-nav {
+    padding: 0;
+    border-bottom: 0;
+}

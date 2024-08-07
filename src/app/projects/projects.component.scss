@@ -1,0 +1,112 @@
+.media {
+  min-height: 60px;
+}
+
+.h-min {
+  min-height: 75px;
+}
+
+.list-view:hover {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.tag {
+  font-size: 14px;
+  height: 2rem;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.modal-text-area {
+  resize: none;
+}
+// .page-header {
+//   h3 {
+//     font-size: 1.25rem;
+//   }
+// }
+// .proj-new {
+//   height: 350px;
+//   background: transparent;
+//   border: 2px dashed #D5D5DC;
+//   .mc-btn {
+//     border-radius: 50%;
+//     min-width: 70px !important;
+//     height: 70px;
+//   }
+//   i {
+//     font-size: 28px;
+//   }
+// }
+.proj-card {
+  min-height: 350px;
+  border: 1px solid #edf2f9;
+  box-shadow: 0px 12px 24px rgba(18, 38, 63, 0.03);
+  border-radius: 8px;
+  overflow: hidden;
+  //box-shadow: 0px 0px 2px rgb(0 0 0 / 10%);
+  border-radius: 10px;
+  &:hover {
+    box-shadow: 0px 0px 2px rgb(0 0 0 / 5%);
+  }
+
+  .proj-opt {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+  }
+  .top {
+    height: 200px;
+  }
+  .projectDescription {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 45px
+  }
+
+  .drop-i {
+    color: black;
+    font-size: 18px;
+  }
+  .bg {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+  }
+  i-feather.bg-i {
+    width: 30px;
+    height: 30px;
+    stroke: #fff !important;
+  }
+
+  .details {
+    p {
+      margin-top: 17.5px;
+      margin-bottom: 0;
+    }
+    // 1600px - 992px && 320px
+    @media screen and (max-width: 1650px) and (min-width: 992px), screen and (max-width: 350px) {
+      align-items: flex-start !important;
+      flex-direction: column;
+      p {
+        &:first-child {
+          margin-top: 17.5px !important;
+          margin-bottom: 7.5px !important;
+        }
+        margin-top: 0 !important;
+      }
+    }
+  }
+}
+.content-card-footer {
+  color: #72849a !important;
+  font-size: 13px;
+  padding-top: 6px;
+}
+.badge {
+  background-color: #e6f9f6;
+}

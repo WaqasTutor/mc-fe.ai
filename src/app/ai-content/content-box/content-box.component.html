@@ -1,0 +1,38 @@
+<div class="col-11 mx-auto">
+  <div class="content-box my-3 p-4 d-flex flex-column" [ngClass]="{'editing':textareaToggle}">
+    <div class="d-flex flex-row">
+      <div class="flex-grow-1">
+        <p class="font-size-12 color-dark mr-1 m-b-0">{{timeAgo(this.content.created_on)|uppercase}}</p>
+      </div>
+      <div class="font-size-18 fw-700 color-dark">
+        <i-feather name="save" nz-tooltip [nzTooltipTitle]="save?'Saved':'Save'"
+        (click)="!content.saved && saveItem()" class="pointer feather-size-16 mr-2" [ngClass]="{'stroke-green': content.saved && content.saved !== status.notSelected}"></i-feather>
+        <i-feather name="copy" nz-tooltip [nzTooltipTitle]="coping?'Copied':'Copy'"
+        (click)="copyContent(content.text)" class="pointer feather-size-16 mr-2" [ngClass]="{'fill': coping}"></i-feather>
+        <i-feather name="trash" nz-tooltip [nzTooltipTitle]="delete?contentStatus(content.trashed)?'Adding to list':'Removing from list'
+        :contentStatus(content.trashed)?'Removed from list':'Remove from list'"
+        (click)="deleteItem()" class="pointer feather-size-16 mr-2" [ngClass]="{'stroke-red': content.trashed && content.trashed !== status.notSelected}"></i-feather>
+        <i-feather name="flag" nz-tooltip [nzTooltipTitle]="flag?contentStatus(content.flagged)?'Unflagging':'Flagged':contentStatus(content.flagged)?'Unflag':'Flag'"
+        (click)="addToFlag()" class="pointer feather-size-16 mr-2" [ngClass]="{'fill-purple': content.flagged && content.flagged !== status.notSelected}"></i-feather>
+        <!-- <i nz-icon nzType="delete"
+          [nzTheme]="!content.trashed ||content.trashed==''||content.trashed==status.notSelected ?'outline':'fill'"
+          [ngClass]="{'text-danger opacity-1 ': content.trashed==status.selected}" class="mr-2" nz-tooltip
+          [nzTooltipTitle]="
+          delete?contentStatus(content.trashed)?'Removing from trash':'Adding to trash'
+          :contentStatus(content.trashed)?'Remove from trash':'Add to trash'" (click)="deleteItem()"></i> -->
+        <!-- <i nz-icon nzType="flag"
+          [nzTheme]="!content.flagged ||content.flagged==''||content.flagged==status.notSelected ?'outline':'fill'"
+          [ngClass]="{'text-secondary opacity-1 ': content.flagged==status.selected}" nz-tooltip
+          [nzTooltipTitle]="flag?contentStatus(content.flagged)?'Unflagging':'Flagged':contentStatus(content.flagged)?'Unflag':'Flag'"
+          (click)="addToFlag()"></i> -->
+      </div>
+    </div>
+    <div [ngClass]="{'pb-1': textareaToggle}">
+      <pre *ngIf="!textareaToggle" class="pb-1 mc-p m-b-0 normal color-darkest"
+        (click)="textareaToggle=!textareaToggle;getHeightWidth();" #pre>{{content.text}}</pre>
+      <textarea #tarea *ngIf="textareaToggle" [style.width.px]="size.width" [value]="content.text"
+        [style.height.px]="size.height" class="input mc-p m-b-0 normal color-darkest"
+        (blur)="textareaToggle=!textareaToggle;updateText($event.target.value);"></textarea>
+    </div>
+  </div>
+</div>

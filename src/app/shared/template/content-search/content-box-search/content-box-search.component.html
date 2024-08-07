@@ -1,0 +1,50 @@
+<div class="col-12 card p-4 content-box border-color border-bottom" [ngClass]="{'editing':textareaToggle}">
+  <div class="d-flex flex-column">
+    <!-- <div class="d-flex flex-row">
+      <div class="flex-grow-1">
+        <span class="mr-1 date-ago">{{timeAgo(this.content.created_on)|uppercase}}</span>
+      </div>
+      <div>
+        <i nz-icon nzType="star"
+          [nzTheme]="!content.is_favourite||content.is_favourite==''||content.is_favourite==status.notSelected ?'outline':'fill'"
+          [ngClass]="{'text-warning opacity-1 ': content.is_favourite==status.selected}" nz-tooltip
+          [nzTooltipTitle]="favorite?contentStatus(content.is_favourite)?'Removing from Favorite':'Favourite':contentStatus(content.is_favourite)?'Remove from Favourite':'Favourite'"
+          class="mr-2" (click)="favoriteItem()"></i>
+        <i nz-icon nzType="copy" nzTheme="outline" nz-tooltip [nzTooltipTitle]="coping?'Copied':'Copy'" class="mr-2"
+          (click)="copyContent(content.text)"></i>
+        <i nz-icon nzType="delete"
+          [nzTheme]="!content.trashed ||content.trashed==''||content.trashed==status.notSelected ?'outline':'fill'"
+          [ngClass]="{'text-danger opacity-1 ': content.trashed==status.selected}" class="mr-2" nz-tooltip
+          [nzTooltipTitle]="
+                delete?contentStatus(content.trashed)?'Removing from trash':'Adding to trash'
+                :contentStatus(content.trashed)?'Remove from trash':'Add to trash'" (click)="deleteItem()"></i>
+        <i nz-icon nzType="flag"
+          [nzTheme]="!content.flagged ||content.flagged==''||content.flagged==status.notSelected ?'outline':'fill'"
+          [ngClass]="{'text-secondary opacity-1 ': content.flagged==status.selected}" nz-tooltip
+          [nzTooltipTitle]="flag?contentStatus(content.flagged)?'Unflagging':'Flagged':contentStatus(content.flagged)?'Unflag':'Flag'"
+          (click)="addToFlag()"></i>
+      </div>
+    </div> -->
+    <div>
+      <pre class="color-darkest">{{(content.text.length >82)?
+      (content.text | slice:0:80)+'...':(content.text)}}</pre>
+    </div>
+    <!-- <div class="col-md-12 d-flex p-0 content-card-header align-items-center">
+      <img [src]="content.tool.logo" class="mr-1" />
+      <h4 class="m-b-0 flex-grow-1 grayText content-card-title cursor-pointer">
+        {{(content.tool.name.length >22)?
+        (content.tool.name | slice:0:20)+'...':(content.tool.name)}}
+      </h4><i nz-icon nz-tooltip nzTooltipTitle="Copy" nzType="copy" (click)="copyContent(content.text);"
+        class=" mr-2 cursor-pointer"></i>
+      <i nz-icon nzType="star" [nzTheme]="content.is_favourite==status.selected ?'fill':'outline'"
+        [ngClass]="{'text-warning opacity-1 ': content.is_favourite==status.selected}" nz-tooltip
+        [nzTooltipTitle]="favorite?contentStatus(content.is_favourite)?'Removing from Favorite':'Favourite':contentStatus(content.is_favourite)?'Remove from Favourite':'Favourite'"
+        class="mr-2 cursor-pointer" (click)="favoriteItem()"></i>
+  </div> -->
+    <div class="content-card-footer">
+      <i nz-icon nzType="clock-circle" nzTheme="outline" class="m-r-10"></i>
+
+      <p class="m-b-0  font-size-13 inline-block">Last updated {{timeAgo(content.updated_on)}}</p>
+    </div>
+  </div>
+</div>

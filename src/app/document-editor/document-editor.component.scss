@@ -1,0 +1,269 @@
+.document-editor-container {
+  position: fixed;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: calc(100vh - 69px);
+  border-top: 1px solid rgb(223, 224, 229);
+
+  .editor-container {
+    width: calc(100vw - 375px);
+    background-color: #fff;
+
+    .editor-right-sidebar {
+      width: 130px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .word-count-container {
+        padding-left: 14px;
+
+        .word-count {
+          display: inline-flex;
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      .bottom-icons {
+        padding: 0 0 18px 18px;
+      }
+    }
+
+    .editor {
+      width: calc(100% - 260px);
+
+      .small-toolbar-footer {
+        display: none;
+        padding-bottom: 7px;
+        font-size: 12px;
+
+        .last-save {
+          display: none;
+        }
+      }
+
+      .editor-header {
+        height: 84px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px 0 10px;
+        position: relative;
+
+        .doc-sidebar-toggle {
+          display: none;
+          position: absolute;
+          right: 12px;
+        }
+
+        .doc-heading {
+          border: none;
+          font-size: 24px;
+          font-weight: 500;
+          background: transparent;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      .doc-editor {
+        height: calc(100% - 84px);
+      }
+    }
+
+    .editor-left-sidebar {
+      width: 130px;
+      padding: 30px 0 0 10px;
+
+      .status {
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .loading:after {
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: bottom;
+        -webkit-animation: ellipsis steps(10, end) 900ms infinite;
+        animation: ellipsis steps(10, end) 900ms infinite;
+        content: "\2026";
+        /* ascii code for the ellipsis character */
+        width: 0px;
+      }
+
+      @keyframes ellipsis {
+        to {
+          width: 20px;
+        }
+      }
+
+      @-webkit-keyframes ellipsis {
+        to {
+          width: 20px;
+        }
+      }
+    }
+  }
+  .ant-drawer-body {
+    overflow: hidden !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+
+  .editor-right-sidebar {
+    display: none !important;
+  }
+
+  .editor-left-sidebar {
+    display: none !important;
+  }
+
+  .editor {
+    width: calc(100% - 0px) !important;
+    padding: 0 10px;
+
+    .small-toolbar-footer {
+      justify-content: space-between !important;
+
+      .loading:after {
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: bottom;
+        -webkit-animation: ellipsis steps(10, end) 900ms infinite;
+        animation: ellipsis steps(10, end) 900ms infinite;
+        content: "\2026";
+        /* ascii code for the ellipsis character */
+        width: 0px;
+      }
+
+      @keyframes ellipsis {
+        to {
+          width: 20px;
+        }
+      }
+
+      @-webkit-keyframes ellipsis {
+        to {
+          width: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .editor-container {
+    width: calc(100vw - 0px) !important;
+
+    .editor {
+      .editor-header {
+        .doc-sidebar-toggle {
+          display: flex !important;
+        }
+
+        .last-save {
+          display: none !important;
+        }
+      }
+
+      .small-toolbar-footer {
+        .last-save {
+          display: flex !important;
+        }
+      }
+    }
+  }
+
+  .doc-sidebar {
+    display: none !important;
+  }
+
+  ::ng-deep .ant-drawer-content-wrapper {
+    width: 375px !important;
+  }
+
+  ::ng-deep .ant-drawer-body {
+    overflow: hidden !important;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  ::ng-deep .ant-drawer-content-wrapper {
+    width: 325px !important;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  ::ng-deep .ant-drawer-content-wrapper {
+    width: 300px !important;
+  }
+}
+
+//@import url(https://fonts.googleapis.com/css?family=Roboto:400);
+
+.editor-sidebar-button {
+    box-shadow: -7px 3px 10px 0 rgb(0 0 0 / 12%) !important;
+}
+
+.mc-btn-info {
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    color: white;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #6a35ff;
+    border: #6a35ff !important;
+    box-shadow: -7px 3px 10px 0 rgb(106 53 255 / 32%) !important;
+  }
+}
+
+.ant-form-item-has-error .ant-form-item-explain {
+  margin-top: 5px;
+}
+::ng-deep .ant-popover-inner-content {
+  padding: 12px 6px 12px 16px;
+}
+
+.popover {
+  border-radius: 14px;
+  width: 440px;
+  overflow: hidden;
+}
+
+.popover-menu {
+  max-height: 300px;
+  overflow-y: scroll;
+  i-feather {
+    height: 20px;
+    width: 20px;
+  }
+
+}
+
+.popover-item {
+  display: flex;
+  align-items: center;
+  height: 57px;
+  background: #F3F5F7;
+  box-sizing: border-box;
+  border-radius: 8px;
+}

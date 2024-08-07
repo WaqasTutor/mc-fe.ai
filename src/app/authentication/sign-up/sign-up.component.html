@@ -1,0 +1,115 @@
+<div class="container-fluid p-h-0 p-v-20 h-100 bg" style="background-image: url('assets/images/others/login-3.png')">
+  <div class="d-flex flex-column justify-content-center h-100">  
+    <div class="d-none d-md-block"></div>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-7 col-lg-5 m-h-auto">
+          <nz-card class="shadow-lg">
+            <div class="d-flex align-items-center justify-content-between m-b-30">
+              <h2 class="mc-h2 color-darkest m-b-0">Sign Up</h2>
+              <img class="img-fluid" alt="" src="assets/images/logo/logo-40x40.png" />
+            </div>
+            <button nz-button nzType="default" class="mb-2 w-100 mc-btn mc-btn-secondary" [nzLoading]="googleLoading" [disabled]="loading"
+              (click)="googleLogin()"><i nz-icon nzType="google" nzTheme="outline"></i>Sign up with Google</button>
+            <h4 class="or-text color-dark m-t-10 m-b-10"><span class="px-2">or register with your email</span> </h4>
+            <form nz-form [formGroup]="signUpForm" #ngForm="ngForm" class="login-form" nzLayout="vertical"
+              (ngSubmit)="submitForm()">
+              <div class="row">
+                <div class="col-6">
+                  <nz-form-item>
+                    <nz-form-label nzFor="name">First Name</nz-form-label>
+                    <nz-form-control>
+                      <input type="text" nz-input formControlName="first_name" placeholder="First Name" id="name" />
+                    </nz-form-control>
+                    <label class="text-danger"
+                      *ngIf="ngForm.submitted&&signUpForm.hasError('required', 'first_name')">First name is
+                      required</label>
+                  </nz-form-item>
+                </div>
+                <div class="col-6">
+                  <nz-form-item>
+                    <nz-form-label nzFor="lastname">Last Name</nz-form-label>
+                    <nz-form-control nzHasFeedback="false">
+                      <input type="text" nz-input formControlName="last_name" placeholder="Last Name" id="lastname">
+                      <label class="text-danger"
+                        *ngIf="ngForm.submitted&&signUpForm.hasError('required', 'last_name')">Last name is
+                        required</label>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+              <!-- <nz-form-item>
+                <nz-form-label nzRequired nzFor="name">UserName</nz-form-label>
+                <nz-form-control nzErrorTip="Please input your username!">
+                  <input type="text" nz-input formControlName="username" placeholder="Username" id="name">
+                </nz-form-control>
+              </nz-form-item> -->
+              <nz-form-item>
+                <nz-form-label nzFor="email">Email</nz-form-label>
+                <nz-form-control nzHasFeedback="false">
+                  <input type="text" nz-input formControlName="email" placeholder="Email" id="email" />
+                  <label class="text-danger" *ngIf="ngForm.submitted&&signUpForm.get('email').errors?.required">Email is
+                    required!</label>
+                  <label class="text-danger"
+                    *ngIf="ngForm.submitted&&signUpForm.get('email').dirty&&signUpForm.get('email').errors?.email&&!signUpForm.get('email').errors?.required">
+                    Email is not correct!
+                  </label>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label nzFor="password">Password</nz-form-label>
+                <nz-form-control>
+                  <input type="password" nz-input formControlName="password" placeholder="Password" id="password">
+                  <label class="text-danger"
+                    *ngIf="ngForm.submitted&&signUpForm.get('password').errors?.required">Please input your
+                    Password!</label>
+                  <label class="text-danger" *ngIf="ngForm.submitted&&!signUpForm.get('password').errors?.required&&signUpForm.get('password').dirty
+                    &&signUpForm.get('password').errors?.pattern">
+                    Password must be a combination of numbers and letters!
+                  </label>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label nzFor="checkPassword">Confirm Password</nz-form-label>
+                <nz-form-control>
+                  <input nz-input type="password" formControlName="checkPassword" placeholder="Confirm Password"
+                    id="checkPassword" />
+                  <label class="text-danger" *ngIf="ngForm.submitted&&signUpForm.get('checkPassword').errors?.required">
+                    Please input your Confirm Password!</label>
+                  <label class="text-danger"
+                    *ngIf="(ngForm.submitted&&!signUpForm.get('checkPassword').errors?.required&&signUpForm.get('checkPassword').dirty&&signUpForm.get('checkPassword').errors?.error)">
+                    Password doesn't
+                    match!
+                  </label>
+                </nz-form-control>
+              </nz-form-item>
+              <div class="d-flex align-items-center justify-content-between">
+                <nz-form-item>
+                  <nz-form-control>
+                    <label nz-checkbox formControlName="agree" (ngModelChange)="requiredChange($event)"></label>
+                    <span class="ml-2">I have read the <a href="https://www.marketingcopy.ai/terms-conditions" target="_blank" class="mc-link">agreement
+                    </a><span class="text-danger mr-1">*</span></span><br>
+                    <label class="text-danger"
+                      *ngIf="ngForm.submitted&&signUpForm.get('agree').errors?.required
+                    &&!signUpForm.get('checkPassword').errors&&!signUpForm.get('password').errors
+                    &&!signUpForm.get('email').errors&&!signUpForm.get('first_name').errors&&!signUpForm.get('last_name').errors">
+                      Agreement is required!
+                    </label>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control>
+                    <div>
+                      <button nz-button class="mc-btn mc-btn-secondary" [nzType]="'default'" [disabled]="googleLoading" [nzLoading]="loading">Sign
+                        Up</button>
+                    </div>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </form>
+          </nz-card>
+        </div>
+      </div>
+    </div>  
+  </div>    
+</div>    

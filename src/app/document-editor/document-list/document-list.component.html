@@ -1,0 +1,85 @@
+<div class="page-header-transparent">
+  <div class="row align-items-md-center">
+    <div class="col-xxl-7 col-xl-6 col-lg-3 col-md-3 flex-grow-1">
+      <h2 class="header-text mc-h2 color-darkest m-0 pt-2">Documents</h2>
+    </div>
+    <div class="col-xxl-5 col-xl-6 col-lg-9 col-md-9 d-flex">
+      <div class="row flex-grow-1 flex-column flex-sm-row">
+        <div class="col-sm-6 mt-2">
+          <nz-input-group [nzPrefix]="searchPrefix" nzBorderless class="flex-grow-1 ">
+              <input type="text" class="color-darker" nz-input placeholder="Search Documents" [(ngModel)]="search" (ngModelChange)="searchChanged($event)" />
+          </nz-input-group>
+          <ng-template #searchPrefix>
+            <i class="color-dark mr-1" nz-icon nzType="search"></i>
+          </ng-template>
+        </div>
+        <div class="col-sm-6 row mt-2 pr-0 flex-nowrap">
+          <div class="col col-auto flex-grow-1">
+              <div class="project-selection-btn project-menu d-inline-flex align-items-center justify-content-between pointer py-2 px-3"
+              (click)="searchToggle()" nz-tooltip [nzTooltipTitle]="'Change current project'" [nzTooltipPlacement]="'topLeft'">
+                <p class="left mc-p small color-dark m-b-0 d-inline-block text-truncate">
+                  Project:
+                  <span class="color-darker">{{ selectedProject?.name }}</span>
+                </p>
+                <span class="my-icon"></span>
+              </div>
+          </div>
+          <div class="col col-auto d-flex justify-content-end p-r-0">
+              <button nz-button [disabled]="adding" (click)="addDocument()" class="page-header-btn d-flex mc-btn mc-btn-primary fw-500 d-flex align-items-center justify-content-center" nz-tooltip nzTooltipPlacement="bottomRight" nzTooltipTitle="Create new document">
+                <i-feather *ngIf="!adding" name="plus" class="feather-size-20"></i-feather>
+                <i nz-icon *ngIf="adding" nzType="loading" class="lh-0 font-size-16"></i>
+              </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid p-4 p-t-0">
+  <div class="row">
+    <div class="col-md-12">
+      <nz-card class="col-12 mt-4 mb-1 p-0 card-border-radius" [nzBodyStyle]="{'padding-top':'10px', 'padding-left': '0px', 'padding-right': '0px', 'padding-bottom': '0px'}">
+        <!--<div class="row flex-grow-1 flex-column flex-sm-row justify-content-between mb-4">
+          <span class="col col-sm-auto col-12 mt-2">
+            <nz-input-group [nzPrefix]="searchPrefix" nzBorderless class="flex-grow-1 ">
+              <input type="text" class="color-darker" nz-input placeholder="Search Documents" [(ngModel)]="search" (ngModelChange)="searchChanged($event)" />
+            </nz-input-group>
+            <ng-template #searchPrefix>
+              <i class="color-dark mr-1" nz-icon nzType="search"></i>
+            </ng-template>
+          </span>
+          <span class="d-flex align-items-center justify-content-between">
+            <span class="col col-sm-auto col-8 mt-2 flex-grow-1">
+              <div class="project-selection-btn project-menu d-inline-flex align-items-center justify-content-between pointer py-2 px-3"
+              (click)="searchToggle()" nz-tooltip [nzTooltipTitle]="'Change current project'" [nzTooltipPlacement]="'topLeft'">
+                <p class="left mc-p small color-dark m-b-0 d-inline-block text-truncate">
+                  Project:
+                  <span class="color-darker">{{ selectedProject?.name }}</span>
+                </p>
+                <span class="my-icon"></span>
+              </div>
+            </span>
+            <span class="col col-sm-auto mt-2 d-flex justify-content-xs-end">
+              <button nz-button [disabled]="adding" (click)="addDocument()" class="page-header-btn d-flex mc-btn mc-btn-primary fw-500 d-flex align-items-center justify-content-center" nz-tooltip nzTooltipPlacement="bottomRight" nzTooltipTitle="Create new document">
+                <i-feather *ngIf="!adding" name="plus" class="feather-size-20"></i-feather>
+                <i nz-icon *ngIf="adding" nzType="loading" class="lh-0 font-size-16"></i>
+              </button>
+            </span>
+          </span>
+        </div>-->
+
+        <ng-container>
+          <app-document-table [min]="min" [max]="max" [documentList]="documentList" [search]="search"></app-document-table>
+        </ng-container>
+
+        <div class="col-12 p-b-10 m-t-20">
+          <nz-pagination [nzPageIndex]="page" *ngIf="documentList.length > pageSize" [nzTotal]="documentList?.length" class="width-fit mx-auto" [nzPageSize]="pageSize" (nzPageIndexChange)="nzPageIndexChange($event)"></nz-pagination>
+        </div>
+      </nz-card>
+    </div>
+</div>
+</div>
+
+

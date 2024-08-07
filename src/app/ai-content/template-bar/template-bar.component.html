@@ -1,0 +1,29 @@
+<div class="d-flex flex-column h-100 bg-bar bg-white overflow-auto">
+  <div class="py-3 px-4 bg-bar">
+    <nz-input-group [nzPrefix]="prefixTemplate" class="d-flex align-items-center">
+      <input type="text" nz-input placeholder="Search Tools" [(ngModel)]="search"
+        (ngModelChange)="tFilter($event)">
+      <ng-template #prefixTemplate><i nz-icon class="mr-2" nzType="search"></i></ng-template>
+    </nz-input-group>
+  </div>
+  <nz-collapse #collapse class="w-100 overflow-auto" [nzBordered]="false">
+    <nz-collapse-panel #panel *ngFor="let toolTag of toolTags; let i=index" [nzHeader]="header" nzShowArrow="false"
+      [nzActive]="search && i == 0 ? true : !search && checkActive(toolTag)">
+      <ng-template #header>
+        <div class="d-flex align-items-center justify-content-between" [ngClass]="{'transition': panel.nzActive}">
+          <h5 class="mc-h5 color-darkest fw-500 m-b-0 text-truncate">{{toolTag}}</h5>
+          <i nz-icon [nzType]="panel.nzActive ? 'minus' : 'plus'"></i>
+        </div>
+      </ng-template>
+      <ul nz-menu>
+        <li nz-menu-item *ngFor="let tool of categoryTools(toolTag) | search:'name':search as count; let t=index"
+          [routerLink]="['./../',tool.uuid]" class="d-flex align-items-center px-3"
+          [ngClass]="{'active': toolId === tool.uuid}">
+          <img [src]="tool.logo" class="mr-4" />
+          <p class="mc-p small fw-500 m-b-0 color-darkest text-truncate">{{tool.name}}</p>
+        </li>
+
+      </ul>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>

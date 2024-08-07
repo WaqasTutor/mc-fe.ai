@@ -1,0 +1,25 @@
+<nz-card class="card-height content-card-main" [nzBodyStyle]="{'display': 'flex','flex-direction': 'column'}">
+  <div class="w-100 d-flex p-0 content-card-header align-items-center">
+    <h5 (click)="createComponentModal()"
+      class="m-b-0 mc-h5 color-darkest fw-normal flex-grow-1 cursor-pointer">
+      {{(contentData.tool.name.length >22)?
+      (contentData.tool.name | slice:0:20)+'...':(contentData.tool.name)}}
+    </h5>
+    <img [src]="contentData.tool.logo" />
+  </div>
+  <pre (click)="createComponentModal()"
+    class="flex-grow-1 m-v-10 lh-normal mc-p small fw-normal color-dark cursor-pointer" ellipsis ellipsis-word-boundaries="." [ellipsis-content]="contentData.text">
+  </pre>
+  <div class="footer-border p-t-10 d-flex align-items-center color-dark">
+    <p class="m-b-0 mc-p small flex-grow-1 m-r-15">Updated {{timeAgo(contentData.updated_on)}}</p>
+    <i-feather name="trash-2" nz-tooltip [nzTooltipTitle]="trashed?contentStatus(contentData.trashed)?'Removing from trash':'Adding to trash'
+    :contentStatus(contentData.trashed)?'Remove from trash':'Add to trash'"
+        (click)="deleteItem()" class="pointer feather-size-16 mr-2" [ngClass]="{'stroke-red': contentData.trashed && contentData.trashed !== status.notSelected}" *ngIf="iconOption==='trash'||iconOption===undefined"></i-feather>
+    <i-feather name="copy" nz-tooltip [nzTooltipTitle]="copied?'Copied':'Copy'"
+        (click)="copy(); $event.stopPropagation()" class="pointer feather-size-16 mr-2" [ngClass]="{'fill': copied}"></i-feather>
+    <i-feather name="flag" nz-tooltip [nzTooltipTitle]="flag?contentStatus(contentData.flagged)?'Unflagging':'Flagged':contentStatus(contentData.flagged)?'Unflag':'Flag'"
+        (click)="addToFlag()" class="pointer feather-size-16 mr-2" [ngClass]="{'fill-purple': contentData.flagged && contentData.flagged !== status.notSelected}" *ngIf="iconOption==='flagged'"></i-feather>
+    <i-feather name="star" nz-tooltip [nzTooltipTitle]="favorite?contentStatus(contentData.is_favourite)?'Removing from Favorite':'Favourite':contentStatus(contentData.is_favourite)?'Remove from Favourite':'Favourite'"
+        (click)="favoriteItem()" class="pointer feather-size-16 mr-2" [ngClass]="{'fill-golden': contentData.is_favourite && contentData.is_favourite !== status.notSelected}" *ngIf="!iconOption||iconOption==='favourites'"></i-feather>
+  </div>
+</nz-card>

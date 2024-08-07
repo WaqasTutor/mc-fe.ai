@@ -1,0 +1,65 @@
+.mc-header {
+  background-color: #fff;
+  border-bottom: 1px solid #edf2f9;
+}
+
+.col-mc-5 {
+  nz-card {
+    box-shadow: 0px 12px 24px rgba(18, 38, 63, 0.03);
+    border-radius: 10px;
+    overflow: hidden;
+    &:hover {
+      box-shadow: 0px 0px 2px rgb(0 0 0 / 5%);
+    }
+    height: 285px;
+  }
+  @media screen and (min-width: 1660px) {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+  @media screen and (min-width: 1360px) and (max-width: 1660px) {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+.media {
+  min-height: 60px;
+}
+
+.tool-i {
+  position: absolute !important;
+  top: 2.6rem !important;
+  right: 2rem !important;
+}
+
+.h-none {
+  min-height: fit-content !important;
+}
+
+.h-min {
+  min-height: 75px;
+}
+
+.list-view:hover {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.tag {
+  font-size: 14px;
+  height: 2rem;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid #DFE0EB;
+  &.active{
+    color: #FFFFFF;
+    border: 1px solid #612EF0;
+  }
+  &.in-active {
+    color :rgba(0, 0, 0, 0.85);
+  }
+}
+.modal-text-area {
+  resize: none;
+}

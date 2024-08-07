@@ -1,0 +1,226 @@
+<div class="container-fluid h-100 bg-white">
+    <div class="row h-100">
+        <div class="col-3 d-xl-block d-none p-0 border-color border-right h-100">
+            <div class="d-flex flex-row align-content-center justify-content-center" *ngIf="sideBarLoading">
+                <i nz-icon [nzType]="'loading'" class="mt-5"></i>
+            </div>
+            <app-template-bar class="h-100" *ngIf="!sideBarLoading&&tools" [toolId]="toolId" [tools]="tools">
+            </app-template-bar>
+        </div>
+        <div class="col-xl-9 col-12">
+            <div class="d-flex flex-row align-content-center justify-content-center" *ngIf="detailLoading">
+                <i nz-icon [nzType]="'loading'" class="mt-5"></i>
+            </div>
+            <div class="h-100 d-flex flex-column" *ngIf="!detailLoading&&details">
+                <div class="row border-bottom border-right p-4">
+                    <div class="col-11 d-flex align-items-center">
+                        <div class="justify-content-center align-self-center mr-3">
+                            <nz-avatar nzSize="60" [nzIcon]="'user'" [nzSrc]="details.logo" class="content-info-image">
+                            </nz-avatar>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h3 class="mc-h3 color-darkest fw-700 mb-0">{{details.name}}</h3>
+                            <p class="mc-p small color-dark mb-0">{{details.description}}</p>
+                        </div>
+                    </div>
+                    <div class="d-xl-none d-block col-1 align-self-center">
+                        <a (click)="visible=!visible">
+                            <i nz-icon class="font-size-30 color-purple" nzType="appstore" theme="outline"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row h-100 main">
+                    <div class="col-xl-6 col-12 d-flex flex-column form-box border-color border-right border-sm-0 p-0">
+                        <div class="row m-0 select-bar border-bottom">
+                                <nz-select nzPlaceHolder="Input Language" class="col-6 p-0 w-100 h-100 color-darkest fw-500" [nzCustomTemplate]="cust"
+                                  [(ngModel)]="inputLanguage" nzBorderless>
+                                  <nz-option *ngFor="let lF of langFormats" nzCustomContent [nzValue]="lF.code" [nzLabel]="lF.language">
+                                    <img class="flag-icon mr-3" [src]="getFlag(lF.code)">
+                                    <span>{{lF.language}}</span>
+                                  </nz-option>
+                                </nz-select>
+                                <nz-select nzPlaceHolder="Output Language" class="col-6 p-0 w-100 h-100 border-left color-darkest fw-500" [nzCustomTemplate]="cust"
+                                  [(ngModel)]="outputLanguage" nzBorderless>
+                                  <nz-option *ngFor="let lF of langFormats" nzCustomContent [nzValue]="lF.code" [nzLabel]="lF.language">
+                                    <img class="flag-icon mr-3" [src]="getFlag(lF.code)">
+                                    <span>{{lF.language}}</span>
+                                  </nz-option>
+                                </nz-select>
+                            <!-- <nz-select class="col-6 p-0 w-100 h-100 color-darkest fw-500 in font-size-16 color-darker"
+                                nzPlaceholder="Input Language" [nzCustomTemplate]="cust" [(ngModel)]="inputLanguage">
+                                <nz-option *ngFor="let lF of langFormats" [nzValue]="lF.code" [nzLabel]="lF.language">
+                                </nz-option>
+                            </nz-select>
+                            <nz-select class="col-6 p-0 w-100 h-100 color-darkest fw-500 out font-size-16 color-darker"
+                                nzPlaceholder="Output Language" [nzCustomTemplate]="cust" [(ngModel)]="outputLanguage">
+                                <nz-option *ngFor="let lF of langFormats" [nzValue]="lF.code" [nzLabel]="lF.language">
+                                </nz-option>
+                            </nz-select> -->
+                            <ng-template #cust let-selected>
+                                <div class="color-darkest py-auto">
+                                    <img class="flag-icon mr-3" [src]="getFlag(selected.nzValue)">
+                                    <span class="color-darker">{{selected.nzLabel}}</span>
+                                </div>
+                            </ng-template>
+                        </div>
+                        <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="form.valid&&submitForm()">
+                            <div class="row p-4 height-responsive calc-height flex-grow-1 form-box form-box-bg m-0">
+                                <div class="col-12 w-100">
+                                    <formly-form [form]="form" [fields]="details.inputs" [model]="model"
+                                        [options]="options">
+                                    </formly-form>
+                                </div>
+                            </div>
+                            <div>
+                                <div
+                                    class="flex-grow-1 d-flex align-items-center justify-content-between border-color border-top border-bottom p-4 m-h-0 fixed-sm-bottom bottom-btn">
+                                    <button nz-button nzType="default" class="ml-2 mc-btn mc-btn-secondary"
+                                        type="button" (click)="options.resetModel()">Clear
+                                        inputs</button>
+                                    <button nz-button nzType="default" class="gen-btn mr-3 mc-btn mc-btn-primary"
+                                        [nzLoading]="generationLoading" type="submit" >
+                                        Generate AI content</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-xl-6 col-12 mt-0 content-bg">
+                        <div class="row mt-0 d-flex flex-column">
+                            <div class="d-flex tab-bar flex-grow-1 justify-content-between border-bottom border-top pr-2">
+                                <div class="d-flex">
+                                    <span class="pointer d-flex align-items-center justify-content-center font-size-16 px-4 fw-500"
+                                        [ngClass]="{'unselected color-darkest':tab==0, 'color-dark':tab!==0}"
+                                        (click)="tab=0">
+                                        <i-feather name="file-text" class="font-size-25 mr-2"></i-feather>
+                                        Output
+                                    </span>
+                                    <!--<span
+                                        class="pointer d-flex align-items-center justify-content-center px-4 fw-500 border-right font-size-16"
+                                        [ngClass]="{'selected color-darkest':tab==1, 'color-dark':tab!==1}"
+                                        (click)="tab=1; loadHistory();">
+                                        <i-feather name="clock" class="font-size-25 mr-2"></i-feather>
+                                        History
+                                    </span>-->
+                                </div>
+                                <div class="project-tab pointer row align-items-center justify-content-center align-self-center justify-self-end px-3 fw-500"
+                                    (click)="searchToggle()" nz-tooltip [nzTooltipTitle]="'Change current project'" [nzTooltipPlacement]="'topLeft'">
+                                    <i-feather name="folder" class="color-dark"></i-feather>
+                                    <span class="t-text mc-p normal color-darkest fw-500 m-b-0 px-0">{{selectedProject?.name}}</span>
+                                    <span class="col col-auto ico py-0"></span>
+                                </div>
+                            </div>
+                            <div class="content-section fit d-flex align-items-center justify-content-center"
+                                *ngIf="(tab==0&&!generationLoading&&!contents)||(tab==1&&!historyLoading&&history.length === 0)">
+                                <p class="col-11 mx-auto mc-p normal color-darker text-center">{{tab==0 ? emptyContentsMessage : (details.name &&
+                                    selectedProject.name) && emptyHistoryMessage()}}</p>
+                            </div>
+                            <div class="content-section" *ngIf="generationLoading||historyLoading">
+                                <div class="col-11 mx-auto">
+                                    <div
+                                        class="content-box my-3 p-4 d-flex flex-column align-items-center justify-content-center">
+                                        <span class="w-100 d-flex align-items-center justify-content-between">
+                                            <nz-skeleton-element nzType="input" class="time w-20" nzSize="small"
+                                                [nzActive]="true">
+                                            </nz-skeleton-element>
+                                            <span>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                            </span>
+                                        </span>
+                                        <nz-skeleton nzType="input" [nzActive]="true"></nz-skeleton>
+                                    </div>
+                                    <div
+                                        class="content-box my-3 p-4 d-flex flex-column align-items-center justify-content-center">
+                                        <span class="w-100 d-flex align-items-center justify-content-between">
+                                            <nz-skeleton-element nzType="input" class="time w-20" nzSize="small"
+                                                [nzActive]="true">
+                                            </nz-skeleton-element>
+                                            <span>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                            </span>
+                                        </span>
+                                        <nz-skeleton nzType="input" [nzActive]="true"></nz-skeleton>
+                                    </div>
+                                    <div
+                                        class="content-box my-3 p-4 d-flex flex-column align-items-center justify-content-center">
+                                        <span class="w-100 d-flex align-items-center justify-content-between">
+                                            <nz-skeleton-element nzType="input" class="time w-20" nzSize="small"
+                                                [nzActive]="true">
+                                            </nz-skeleton-element>
+                                            <span>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                                <nz-skeleton-element nzType="button" class="icon" nzSize="small"
+                                                    [nzActive]="true">
+                                                </nz-skeleton-element>
+                                            </span>
+                                        </span>
+                                        <nz-skeleton nzType="input" [nzActive]="true"></nz-skeleton>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="tab==0&&!generationLoading&&contents" class="content-section">
+                                <app-content-box [content]="content" (deleted)="removeItem('contents', content.uuid)"
+                                    *ngFor="let content of contents;">
+                                </app-content-box>
+                                <div class="col-11 mx-auto">
+                                    <span
+                                        class="content-box my-3 p-4 d-flex flex-column align-items-center justify-content-center">
+                                        <h5 class="mc-h5 color-dark fw-normal m-b-0">Help us improve the quality of our
+                                            AI content</h5>
+                                        <nz-rate [nzTooltips]="tooltips" class="mt-3" [(ngModel)]="contentRating"
+                                            (ngModelChange)="sendFeedback($event)"></nz-rate>
+                                    </span>
+                                </div>
+                            </div>
+                            <div *ngIf="tab==1&&!historyLoading&&history.length !== 0" class="content-section">
+                                <app-content-box [content]="item" (deleted)="removeItem('history', item.uuid)"
+                                    *ngFor="let item of history;"></app-content-box>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #closeIcon>
+    <i-feather name="x-circle" class="feather-size-20 stroke-darker"></i-feather>
+  </ng-template>
+<nz-drawer [nzClosable]="true" [nzVisible]="visible" [nzPlacement]="'right'" nzWidth="300px" nzTitle="Tools" [nzCloseIcon]="closeIcon"
+    (nzOnClose)="close()">
+    <ng-container *nzDrawerContent>
+        <div class="d-flex flex-row align-content-center justify-content-center" *ngIf="sideBarLoading">
+            <i nz-icon [nzType]="'loading'" class="flex-grow-1 "></i>
+        </div>
+        <app-template-bar *ngIf="!sideBarLoading&&tools" [tools]="tools" [toolId]="toolId"></app-template-bar>
+    </ng-container>
+</nz-drawer>

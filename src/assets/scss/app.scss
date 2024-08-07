@@ -1,0 +1,235 @@
+@import "variables";
+@import "mixins";
+@import "reset";
+
+/*******************/
+/*** Components ***/
+/*****************/
+
+/*General*/
+@import "components/general/typorgraphy";
+@import "components/general/buttons";
+@import "components/general/icons";
+
+/*Layout*/
+@import "components/layout/breakpoint";
+@import "components/layout/grid";
+
+/*Navigation*/
+@import "components/navigation/_affix";
+@import "components/navigation/_breadcrumb";
+@import "components/navigation/dropdown";
+@import "components/navigation/menu";
+@import "components/navigation/pagination";
+@import "components/navigation/page-header";
+@import "components/navigation/steps";
+
+/*Data Entry*/
+@import "components/data-entry/autocomplete";
+@import "components/data-entry/cascader";
+@import "components/data-entry/checkbox";
+@import "components/data-entry/date-picker";
+@import "components/data-entry/form";
+@import "components/data-entry/input";
+@import "components/data-entry/mention";
+@import "components/data-entry/radio";
+@import "components/data-entry/rate";
+@import "components/data-entry/select";
+@import "components/data-entry/slider";
+@import "components/data-entry/switch";
+@import "components/data-entry/time-picker";
+@import "components/data-entry/transfer";
+@import "components/data-entry/tree-select";
+@import "components/data-entry/upload";
+
+/*Data Display*/
+@import "components/data-display/avatar";
+@import "components/data-display/badge";
+@import "components/data-display/calendar";
+@import "components/data-display/card";
+@import "components/data-display/carousel";
+@import "components/data-display/collapse";
+@import "components/data-display/comment";
+@import "components/data-display/descriptions";
+@import "components/data-display/list";
+@import "components/data-display/popover";
+@import "components/data-display/statistic";
+@import "components/data-display/table";
+@import "components/data-display/tabs";
+@import "components/data-display/tag";
+@import "components/data-display/timeline";
+@import "components/data-display/tooltip";
+@import "components/data-display/tree";
+
+/*Feedback*/
+@import "components/feedback/alert";
+@import "components/feedback/drawer";
+@import "components/feedback/message";
+@import "components/feedback/modal";
+@import "components/feedback/notifications";
+@import "components/feedback/progress";
+@import "components/feedback/spin";
+
+/*Other*/
+@import "components/others/anchor";
+@import "components/others/back-to-top";
+@import "components/others/divider";
+
+/******************/
+/*** Template ****/
+/****************/
+@import "template/header.scss";
+@import "template/layout.scss";
+@import "template/side-nav.scss";
+@import "template/footer.scss";
+
+/*****************/
+/***** Apps *****/
+/***************/
+// @import "apps/chat.scss";
+// @import "apps/file-manager.scss";
+// @import "apps/mail.scss";
+// @import "apps/e-commerce.scss";
+
+/*****************/
+/*** Plugins ****/
+/***************/
+@import "plugins/chartist.scss";
+@import "plugins/quill.scss";
+
+/*******************/
+/*** Utilities ****/
+/*****************/
+@import "utilities/utilities-bs.scss";
+@import "utilities/utilities-enlink.scss";
+
+.ps-content {
+  display: block;
+  height: calc(100% - 80px) !important;
+}
+.side-nav {
+  //border-right: 1px solid $border-color;
+}
+// .ps {
+//   border-right: 1px solid $border-color;
+// }
+.cursor-pointer {
+  cursor: pointer;
+}
+.border {
+
+  border: 1p solid #f0f0f0;
+  //border: 2px solid #e6eaf5;
+}
+.border-left {
+  border-left: 1px solid #f0f0f0;
+  //border-left: 1px solid #e6eaf5;
+}
+.border-right {
+  border-right: 1px solid #f0f0f0;
+  //border-right: 1px solid #e6eaf5;
+}
+.border-top {
+  border-top: 1px solid #f0f0f0;
+  //border-top: 1px solid #e6eaf5;
+}
+.border-bottom {
+  border-bottom: 1px solid #f0f0f0;
+  //border-bottom: 1px solid #e6eaf5;
+}
+.ant-drawer-body {
+  padding: 0px;
+}
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
+.pointer {
+  cursor: pointer;
+}
+.header-text {
+  font-size: 1.25rem;
+}
+.card-view {
+  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  opacity: 1;
+  transform-style: preserve-3d;
+  border-radius: 1rem;
+  min-height: 285px;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
+  .card-title-text {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1.125rem;
+    line-height: 24px;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    margin-left: 0px !important;
+  }
+
+  .card-description-text {
+    color: #7b88a8;
+    font-size: 0.975rem;
+    line-height: 1.4;
+    font-weight: 200;
+  }
+}
+.p-24 {
+  padding: 24px;
+}
+.content-card-main {
+  .ant-card-body {
+    height: 100%;
+  }
+}
+.card-view {
+  // background-color: red !important;
+  nz-avatar {
+    width: 65px !important;
+    height: 65px !important;
+    line-height: 35px !important;
+    background-color: #f8faff !important;
+    img {
+      width: 80% !important;
+      height: 80% !important;
+      margin-left: 6px !important;
+      margin-top: 7px !important;
+    }
+  }
+}
+.error-card {
+  img {
+    width: 60%;
+    height: 60%;
+    margin: 10px auto;
+  }
+}
+.content-modal {
+  .ant-modal-content {
+    -webkit-transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+      rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+      rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    opacity: 1;
+    border-radius: 1.5rem;
+    background: white;
+  }
+}
+.crisp-client .cc-1xry .cc-unoo .cc-7doi {
+  display: none !important;
+}
+.custom-dropdown {
+  .ant-dropdown-menu-item:hover,
+  .ant-dropdown-menu-item:focus,
+  .ant-dropdown-menu-submenu-title:hover,
+  .ant-dropdown-menu-submenu-title:focus {
+    background-color: #ffffff !important;
+  }
+}

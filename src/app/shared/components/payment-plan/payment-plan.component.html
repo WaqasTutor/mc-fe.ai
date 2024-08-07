@@ -1,0 +1,394 @@
+<div *ngIf="userUsage" class="row align-items-center">
+  <div class="col-12 text-center m-b-30">
+    <nz-radio-group [(ngModel)]="plan" name="plan">
+      <label nz-radio-button nzValue="month">Monthly</label>
+      <label nz-radio-button nzValue="year">Annually</label>
+    </nz-radio-group>
+  </div>
+  <div class="col-12 text-center m-b-30" *ngIf="!plans"><i nz-icon [nzType]="'loading'" class="mt-5"></i></div>
+  <div class="m-auto" [ngClass]="{'col-6':!modal,'col-12':modal}" *ngIf="plans">
+    <div class="row">
+      <div class="col-lg-6 col-md-12 col-12">
+        <nz-card class="plans">
+          <div class="d-flex justify-content-between p-b-20 border-bottom">
+            <div class="media align-items-center">
+              <nz-avatar nzIcon="coffee" [nzSize]="55" class="ant-avatar-blue"></nz-avatar>
+              <div class="m-l-15">
+                <h4 class="m-b-0">Starter Plan</h4>
+                <h2 class="font-weight-bold font-size-30 m-b-0">
+                  ${{plans.starter[plan].price}}<span class="font-size-13 "> / month</span>
+                </h2>
+                <h6 class="color-dark m-b-0 mc-h6">billed {{plan}}ly</h6>
+              </div>
+            </div>
+          </div>
+          <ul class="list-unstyled m-v-30">
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">30,000 words generated</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Access to all 80+ tools</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">All Languages</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Document Editor</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Long form writing assistant</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Support Chat</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Unlimited Documents</span>
+                <div class="text-danger font-size-16">
+                  <i nz-icon nzType="close" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Unlimited Projects</span>
+                <div class="text-danger font-size-16">
+                  <i nz-icon nzType="close" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="text-center">
+            <button nz-button nzType="primary" class="mc-btn mc-btn-secondary"
+              [disabled]="userUsage?.subscription_plan?.name === 'starter' && userUsage?.subscription_plan?.period_billing === plan"
+              (click)="changePlan()">
+              <span
+                *ngIf="userUsage?.subscription_plan?.name === 'starter' && userUsage?.subscription_plan?.period_billing === plan">Current
+                Plan</span>
+              <span
+                *ngIf="userUsage?.subscription_plan?.name !== 'starter' || userUsage?.subscription_plan?.period_billing !== plan">{{plan
+                === 'month' || ((userUsage?.subscription_plan?.name === 'pro' &&
+                userUsage?.subscription_plan?.period_billing === 'month') || (userUsage?.subscription_plan?.name ===
+                'pro' && userUsage?.subscription_plan?.period_billing === 'year') ) ? 'Downgrade Plan':'Upgrade Plan'}}</span>
+            </button>
+          </div>
+        </nz-card>
+      </div>
+      <div class="col-lg-6 col-md-12 col-12">
+        <nz-card class="plans">
+          <div class="d-flex justify-content-between p-b-20 border-bottom">
+            <div class="media align-items-center">
+              <nz-avatar nzIcon="apartment" [nzSize]="55" class="ant-avatar-cyan"></nz-avatar>
+              <div class="m-l-15">
+                <h4 class="m-b-0">Pro Plan</h4>
+                <h2 class="font-weight-bold font-size-30 m-b-0">
+                  ${{plans.pro[plan].price}} <span class="font-size-13 "> / month</span>
+                </h2>
+                <h6 class="color-dark m-b-0 mc-h6">billed {{plan}}ly</h6>
+              </div>
+            </div>
+          </div>
+          <ul class="list-unstyled m-v-30">
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Unlimited words</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Access to all 80+ tools</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">All Languages</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Document Editor</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Long form writing assistant</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+             <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Support Chat</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Unlimited Documents</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Unlimited Projects</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="text-center">
+            <button nz-button nzType="primary" class="mc-btn mc-btn-secondary"
+              [disabled]="userUsage?.subscription_plan?.name === 'pro' && userUsage?.subscription_plan?.period_billing === plan"
+              (click)="changePlan()">
+              <span
+                *ngIf="userUsage?.subscription_plan?.name === 'pro' && userUsage?.subscription_plan?.period_billing === plan">Current
+                Plan</span>
+              <span
+                *ngIf="userUsage?.subscription_plan?.name !== 'pro' || userUsage?.subscription_plan?.period_billing !== plan">{{plan
+                !== 'month' || ((userUsage?.subscription_plan?.name === 'starter' &&
+                userUsage?.subscription_plan?.period_billing === 'month') || (userUsage?.subscription_plan?.name ===
+                'starter' && userUsage?.subscription_plan?.period_billing === 'year') ) ? 'Upgrade Plan':'Dowgrade Plan'}}</span>
+            </button>
+          </div>
+        </nz-card>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!userUsage" class="row align-items-center">
+  <div class="col-12 text-center m-b-30">
+    <!--<nz-radio-group [(ngModel)]="plan" name="plan">
+      <label nz-radio-button nzValue="month">Monthly</label>
+      <label nz-radio-button nzValue="year">Annually</label>
+    </nz-radio-group>-->
+  </div>
+  <div class="col-12 text-center m-b-30" *ngIf="!plans"><i nz-icon [nzType]="'loading'" class="mt-5"></i></div>
+  <div class="m-auto" [ngClass]="{'col-6':!modal,'col-12':modal}" *ngIf="plans">
+    <div class="row">
+      <div class="col-lg-6 col-md-12 col-12">
+        <nz-card class="plans">
+          <div class="d-flex justify-content-between p-b-20 border-bottom">
+            <div class="media align-items-center">
+              <nz-avatar nzIcon="coffee" [nzSize]="55" class="ant-avatar-blue"></nz-avatar>
+              <div class="m-l-15">
+                <h4 class="m-b-0">Starter Plan</h4>
+                <h2 class="font-weight-bold font-size-30 m-b-0">
+                  ${{plans.starter[plan].price}} <span class="font-size-13 ">/ month</span>
+                </h2>
+                <h6 class="color-dark m-b-0 mc-h6">billed {{plan}}ly</h6>
+              </div>
+            </div>
+          </div>
+          <ul class="list-unstyled m-v-30">
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">30,000 words generated</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Access to all 80+ tools</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">All Languages</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Document Editor</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Long form writing assistant</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Support Chat</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Unlimited Documents</span>
+                <div class="text-danger font-size-16">
+                  <i nz-icon nzType="close" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Unlimited Projects</span>
+                <div class="text-danger font-size-16">
+                  <i nz-icon nzType="close" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+          <div class="text-center">
+            <button nz-button nzType="default" class="mc-btn mc-btn-primary" [nzLoading]="starterLoading"
+              (click)="selectedId=plans.starter[plan].plan_id;buyPackage(plans.starter[plan].plan_id, 'starter')">
+              <span>Get Started</span>
+            </button>
+          </div>
+        </nz-card>
+      </div>
+      <div class="col-lg-6 col-md-12 col-12">
+        <nz-card class="plans">
+          <div class="d-flex justify-content-between p-b-20 border-bottom">
+            <div class="media align-items-center">
+              <nz-avatar nzIcon="apartment" [nzSize]="55" class="ant-avatar-cyan"></nz-avatar>
+              <div class="m-l-15">
+                <h4 class="m-b-0">Pro Plan</h4>
+                <h2 class="font-weight-bold font-size-30 m-b-0">
+                  ${{plans.pro[plan].price}}<span class="font-size-13 "> / month</span>
+                </h2>
+                <h6 class="color-dark m-b-0 mc-h6">billed {{plan}}ly</h6>
+              </div>
+            </div>
+          </div>
+          <ul class="list-unstyled m-v-30">
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Unlimited words</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Access to all 80+ tools</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">All Languages</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Document Editor</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Long form writing assistant</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+             <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Support Chat</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Unlimited Documents</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+            <li class="m-b-20">
+              <div class="d-flex justify-content-between">
+                <span class=" ">Unlimited Projects</span>
+                <div class="text-success font-size-16">
+                  <i nz-icon nzType="check" theme="outline"></i>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="text-center">
+            <button nz-button [nzLoading]="proLoading" nzType="default" class="mc-btn mc-btn-primary" (click)="selectedId=plans.pro[plan].plan_id;buyPackage(plans.pro[plan].plan_id, 'pro')">
+              <span>Get Started</span>
+            </button>
+          </div>
+        </nz-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+::ng-deep {
+    nz-card > div > .col-sm-auto {
+      max-width: unset !important;
+    }
+    nz-card {
+      .ant-input-affix-wrapper.ant-input-affix-wrapper-focused {
+        box-shadow: none;
+        outline: none;
+      }
+    }
+    nz-table {
+      .ant-table-content::-webkit-scrollbar {
+        height: 8px !important;
+      }
+    }
+    th {
+      border-bottom: 1px solid #edf2f9;
+      padding: 0.9375rem;
+    }
+    tbody {
+      margin-top: 15px !important;
+    }
+    a, a:active, a:hover {
+      color: #2d3958;
+      font-weight: normal;
+      nz-avatar {
+        &.nz-text {width: unset !important;}
+        span {
+          transform: none !important;
+          font-size: 14px !important;
+          color: #2d3958;
+          position: static !important;
+        }
+        i {
+          font-size: 20px;
+          color: #2d3958 !important;
+        }
+      }
+    }
+    .ant-dropdown-menu-submenu-expand-icon {
+      display: none;
+    }
+  }
+
+.pd-l {
+  padding-left: 20px;
+}
+
+th {
+  position: relative;
+  &::before {
+    /*position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 1.6em;
+    background-color: #0000000f;
+    transform: translateY(-50%);
+    transition: background-color .3s;
+    content: "";*/
+  }
+  &:last-child {
+    &::before {
+      display: none;
+    }
+  }
+}

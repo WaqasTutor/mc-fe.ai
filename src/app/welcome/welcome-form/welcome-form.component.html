@@ -1,0 +1,99 @@
+<div class="container-fluid p-t-80 p-b-80 h-100 welcome">
+  <div class="row">
+    <div class="col-8 m-auto p-4 text-center" *ngIf="step==1">
+      <h1 class="text-center mc-h1 color-darkest">Welcome {{name}} 👋</h1>
+      <p class="mc-p normal m-b-0 color-darker">Tell us a little about yourself so we can recommend tools and features
+        that will be most useful for you</p>
+    </div>
+    <div class="col-8 m-auto p-4 text-center" *ngIf="step==2">
+      <h1 class="mc-h1 color-darkest">How do you plan to use MarketingCopy?</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3 col-md-8 col-12 m-auto  p-4">
+      <nz-steps [nzCurrent]="step" nzSize="small">
+        <nz-step></nz-step>
+        <nz-step></nz-step>
+        <nz-step></nz-step>
+      </nz-steps>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-12 m-auto p-4">
+      <form nz-form #radioForm="ngForm" nzLayout="vertical" class="login-form" *ngIf="step==1" (ngSubmit)="radioForm.valid && step=2">
+        <div class="row mb-4">
+          <div class="col-12">
+            <h3 class="mc-h3 color-darkest">What is your role? Select one</h3>
+          </div>
+          <div class="col-lg-6 col-md-12 col-12">
+            <nz-radio-group [(ngModel)]="radioValue" required #radioModel="ngModel" name="radio" (ngModelChange)="radioForm.valid">
+              <label class="mc-p small m-b-0 color-darker" nz-radio nzValue="Marketer">Marketer</label>
+              <label class="mc-p small m-b-0 color-darker" nz-radio nzValue="Entrepreneur">Entrepreneur</label>
+              <label class="mc-p small m-b-0 color-darker" nz-radio nzValue="Agency">Agency</label>
+              <label class="mc-p small m-b-0 color-darker" nz-radio nzValue="Content Writer">Content Writer</label>
+              <label class="mc-p small m-b-0 color-darker" nz-radio nzValue="Copywriter">Copywriter</label>
+            </nz-radio-group>
+          </div>
+          <div class="col-lg-6 col-md-12 col-12">
+            <nz-radio-group [(ngModel)]="radioValue" [nzError] name="radio2" (ngModelChange)="radioForm.valid">
+              <label class="mc-p small m-b-0 color-darker" nz-radio nzValue="Sales">Sales</label>
+              <label class="mc-p small m-b-0 color-darker" nz-radio nzValue="Strategy">Strategy</label>
+              <label class="mc-p small m-b-0 color-darker" nz-radio nzValue="Student/Education Expert">Student / Education Industry</label>
+              <label class="mc-p small m-b-0 color-darker" nz-radio nzValue="other">Other</label>
+            </nz-radio-group>
+          </div>
+          <div class="col-12 mt-4">
+            <nz-form-item *ngIf="radioValue=='other'">
+              <nz-form-control nzErrorTip="Please input your Email!">
+                <nz-input-group [nzPrefix]="prefixUser">
+                  <input type="text" [(ngModel)]="otherValue" required #otherModel="ngModel" name="other" nz-input placeholder="Other option">
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-auto" *ngIf="radioForm.submitted && radioForm.invalid">
+            <label class="text-danger">{{radioModel.invalid ? 'Please select at least one option.' : 'Please enter a valid value.'}}</label>
+          </div>
+        </div>
+
+        <nz-form-item>
+          <nz-form-control>
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="flex-grow-1"></div>
+              <button nz-button class="mc-btn mc-btn-primary" [nzType]="'primary'" type="submit">Continue</button>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <form nz-form #radioForm2="ngForm" nzLayout="vertical" class="login-form" *ngIf="step==2" (ngSubmit)="checked.length > 0 && redirectPricing()">
+        <div class="row mb-4">
+          <div class="col-12">
+            <h3 class="mc-h3 color-darkest">What kind of copy are you looking to create with MarketingCopy?</h3>
+          </div>
+          <div class="col-12">
+            <div class="form-check d-flex align-items-center mb-2" *ngFor="let val of checkboxes;let i=index;">
+              <input class="form-check-input big-checkbox mr-2" type="checkbox" [value]="val" indeterminate="true"
+                [checked]="checkField(val)" [id]="val" [name]="val" (change)="checkChange($event,val)">
+              <label class="mc-p small m-b-0 color-darker" class="flex-grow-1 checkbox-label" [for]="val">
+                {{val}}
+              </label>
+            </div>
+          </div>
+          <div class="col-auto mt-2" *ngIf="radioForm2.submitted && checked.length === 0">
+            <label class="text-danger">Please select at least one option.</label>
+          </div>
+        </div>
+        <nz-form-item>
+          <nz-form-control>
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="flex-grow-1"></div>
+              <button nz-button class="mc-btn mc-btn-primary" [nzType]="'primary'" [nzLoading]="loading"
+                type="submit">Get
+                Started</button>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </div>
+</div>

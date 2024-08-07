@@ -1,0 +1,51 @@
+@import '../ai-content.component.scss';
+.ant-menu {
+  .ant-menu-item, .ant-menu-item.ant-menu-item-selected {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background-color: transparent;
+    img {
+      height: 20px;
+      width: 20px;
+    }
+    border: 1px solid transparent;
+    &.active,
+    &:hover {
+      background: $bg-color;
+      border: 1px solid $border-color;
+      color: $border-color;
+      border-radius: 8px;
+    }
+    &:focus-visible {
+      outline: none;
+  }
+  }
+}
+
+.bg-bar {
+  background: $bg-color;
+}
+
+.bg-bar ::ng-deep {
+  .ant-input-affix-wrapper {
+    height: 45px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+  }
+  .ant-menu-vertical {
+    border: none;
+  }
+  .ant-collapse > .ant-collapse-item,
+  .ant-collapse > .ant-collapse-item.ant-collapse-no-arrow {
+    border-bottom: none;
+    .ant-collapse-content {
+      border-top: none;
+    }
+    .ant-collapse-header {
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+    }
+  }
+}

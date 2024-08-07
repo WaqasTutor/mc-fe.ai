@@ -1,0 +1,84 @@
+<div class="d-flex document-editor-container">
+  <div class="d-flex editor-container">
+    <div class="editor-right-sidebar">
+      <div class="word-count-container m-t-25">
+        <span class="word-count color-darkest">
+          <span>{{ wordsCount }}</span>
+          <span>words</span>
+        </span>
+      </div>
+      <div class="d-flex flex-column bottom-icons">
+        <span>
+          <button nz-button (click)="openChat()" nzShape="circle" class="color-darker pointer m-b-20 editor-sidebar-button">
+            <i class="lh-0" nz-icon nzType="comment" nzTheme="outline"></i>
+          </button>
+        </span>
+        <span>
+          <button nz-button  nz-tooltip [nzTooltipTitle]="'Tips and Resources'" [nzTooltipPlacement]="'topLeft'" nz-popover [nzPopoverContent]="popoverTemplate" nzPopoverTrigger="click" nzPopoverPlacement="topLeft" nzShape="circle" class="mc-btn-info pointer">
+            <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+          </button>
+          <ng-template #popoverTemplate>
+            <div class="popover">
+              <div class="mb-3">
+                <h4 class="mc-h4 color-darkest fw-500">Tutorials</h4>
+              </div>
+              <div class="popover-menu">
+                <a class="popover-item color-darkest mb-2 mr-2 px-3" (click)="createVideoModal()">
+                  <i-feather class="stroke mr-3" name="film"></i-feather>
+                  Writing blogs with MarketingCopy - Video Tutorial
+                </a>
+                <a class="popover-item color-darkest mb-2 mr-2 px-3" href='https://help.marketingcopy.ai/Navigating-our-Document-Editor-b34dea44caba41aa87a4119a36adca18' target="_blank">
+                  <i-feather class="stroke mr-3" name="file"></i-feather>
+                  Tips/tricks for using long form writing assistant
+                </a>
+                <a class="popover-item color-darkest mb-2 mr-2 px-3" href='https://help.marketingcopy.ai/Writing-a-blog-with-MarketingCopy-AI-2378abc64e3f4d9ebc5ce20a3b46372a' target="_blank">
+                  <i-feather class=" mr-3" name="file"></i-feather>
+                  Writing a blog with MarketingCopy
+                </a>
+                <a class="popover-item color-darkest mb-2 mr-2 px-3" href='https://help.marketingcopy.ai/Navigating-our-Document-Editor-b34dea44caba41aa87a4119a36adca18' target="_blank">
+                  <i-feather class=" stroke mr-3" name="file"></i-feather>
+                  Navigating our document editor
+                </a>
+              </div>
+            </div>
+          </ng-template>
+        </span>
+      </div>
+    </div>
+    <div *ngIf="documentData" class="d-flex flex-column editor">
+      <div class="editor-header">
+        <div class="flex-grow-1">
+          <input #title class="doc-heading w-50" type="text" placeholder="Untitled document" (blur)="onTitleChange($event)" [(ngModel)]="documentData.name"/>
+        </div>
+        <span *ngIf="!lastSavedHidden && lastSaved.view !== ''" class="last-save">Saved {{ lastSaved.view }}</span>
+        <span class="doc-sidebar-toggle">
+          <i nz-icon nzType="menu" nzTheme="outline" (click)="openDrawer()"></i>
+        </span>
+      </div>
+      <ckeditor *ngIf="editor" class="doc-editor" [editor]="editor" [config]="config" [data]="documentData.text" (change)="onChange($event)" (ready)="onReady($event)"></ckeditor>
+      <div class="small-toolbar-footer">
+        <span>{{ wordsCount }} &nbsp;words</span>
+        <span *ngIf="lastSaved.view !== ''" class="last-save">Saved {{ lastSaved.view }}</span>
+        <span style="width: 70px" *ngIf="!editorInstance || (editorInstance && isThinking)">
+          <span class="d-flex align-items-center">
+            {{!editorInstance ? 'Loading': 'Thinking'}}
+            <nz-spin class="ml-2" nzSimple [nzSize]="'small'"></nz-spin>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="editor-left-sidebar">
+      <span class="d-flex align-items-center" *ngIf="!editorInstance || (editorInstance && isThinking)">
+        {{editorInstance == undefined ? 'Loading': 'Thinking'}}
+        <nz-spin class="ml-2" nzSimple [nzSize]="'small'"></nz-spin>
+      </span>
+    </div>
+  </div>
+  <app-doc-sidebar *ngIf="!isSmallScreen" [wordsCount]="wordsCount" [data]="data" [Tools]="toolsList" [isThinking]="isThinking" (writeForMeData)="onFormDataChange($event)" (writeWithContext)="onwriteWithContext($event)" (searchChanged)="onSearch($event)" (generatedText)="ongeneratedText($event)" (loading)="onThinking($event)" class="doc-sidebar"></app-doc-sidebar>
+  <ng-template #closeIcon>
+    <i-feather name="x-circle" class="feather-size-20 stroke-darker"></i-feather>
+  </ng-template>
+  <nz-drawer [nzClosable]="true"  [nzVisible]="visible" nzPlacement="right" (nzOnClose)="close()" [nzCloseIcon]="closeIcon">
+    <app-doc-sidebar *nzDrawerContent [wordsCount]="wordsCount" [data]="data" [Tools]="toolsList" [isThinking]="isThinking" (writeForMeData)="onFormDataChange($event)" (writeWithContext)="onwriteWithContext($event)" (searchChanged)="onSearch($event)" (generatedText)="ongeneratedText($event)" (loading)="onThinking($event)"></app-doc-sidebar>
+  </nz-drawer>
+</div>

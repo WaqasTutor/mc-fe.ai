@@ -1,0 +1,69 @@
+<div class="container-fluid p-h-0 p-v-20 h-100 bg" style="background-image: url('assets/images/others/login-3.png')">
+  <div class="d-flex flex-column justify-content-center h-100">
+    <div class="d-none d-md-block"></div>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-7 col-lg-5 m-h-auto">
+          <nz-card class="shadow-lg">
+            <div class="d-flex align-items-center justify-content-between m-b-30">
+              <h2 class="mc-h2 color-darkest m-b-0">Sign In</h2>
+              <img class="img-fluid" alt="" src="assets/images/logo/logo-40x40.png">
+            </div>
+            <button nz-button [nzType]="'default'" class="mb-2 w-100 mc-btn mc-btn-secondary" [nzLoading]="googleLoading" [disabled]="loading"
+              (click)="googleLogin()"><i nz-icon nzType="google" nzTheme="outline"></i>Sign in with Google</button>
+            <h4 class="or-text m-t-10 m-b-10"><span class="px-2 color-dark">or login with your email</span> </h4>
+            <form nz-form [formGroup]="loginForm" nzLayout="vertical" class="login-form" #ngForm="ngForm"
+              (ngSubmit)="submitForm()">
+              <nz-form-item>
+                <nz-form-label class="color-darker" nzFor="email">Email</nz-form-label>
+                <nz-form-control>
+                  <nz-input-group [nzPrefix]="prefixUser">
+                    <input type="text" nz-input formControlName="email" placeholder="Email" />
+
+                  </nz-input-group>
+                  <label class="text-danger" *ngIf="ngForm.submitted&&loginForm.get('email').errors?.required">Email
+                    is
+                    required!</label>
+                  <label class="text-danger"
+                    *ngIf="ngForm.submitted&&loginForm.get('email').dirty&&loginForm.get('email').errors?.email&&!loginForm.get('email').errors?.required">
+                    Email is not correct!
+                  </label>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item class="relative">
+                <nz-form-label class="color-darker" nzFor="password">Password</nz-form-label>
+                <a class="float-right font-size-13 text-muted" style="position:absolute; right: 0"
+                  [routerLink]="['/forgot-password']">Forgot Password?</a>
+                <nz-form-control>
+                  <nz-input-group [nzPrefix]="prefixLock">
+                    <input type="password" nz-input formControlName="password" placeholder="Password" />
+                  </nz-input-group>
+                  <label class="text-danger"
+                    *ngIf="ngForm.submitted&&loginForm.get('password').errors?.required">Password
+                    is
+                    required!</label>
+                  <!-- <label class="text-danger"
+                    *ngIf="ngForm.submitted&&loginForm.get('password').dirty&&loginForm.get('password').errors?.pattern">
+                    Password is not correct!
+                  </label> -->
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <span class="font-size-13">Don't have an account? <a class="small mc-link"
+                        [routerLink]="['/signup']"> Signup</a></span>
+                    <button nz-button class="mc-btn mc-btn-secondary" [nzType]="'default'" [disabled]="googleLoading" [nzLoading]="loading">Sign
+                      In</button>
+                  </div>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+            <ng-template #prefixUser><i nz-icon nzType="user"></i></ng-template>
+            <ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>
+          </nz-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

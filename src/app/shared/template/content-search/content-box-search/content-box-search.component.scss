@@ -1,0 +1,134 @@
+$content-box-bg: rgb(240, 253, 244);
+
+// @media screen and (max-width: 768px) {
+//   .content-box {
+//     margin-bottom: 100px;
+//   }
+// }
+.opacity-1 {
+  opacity: 1 !important;
+}
+.editing {
+  background-color: aliceblue;
+}
+.selected {
+  background-color: $content-box-bg;
+}
+pre {
+  font-family: "DM Sans";
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  margin-top: 10px;
+  font-size: 16px;
+}
+.date-ago {
+  font-size: 12px;
+}
+
+textarea {
+  margin-top: 10px;
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  font-size: 16px;
+  padding: 0px;
+}
+::ng-deep .ant-modal-footer,
+::ng-deep .ant-modal-header {
+  border: none !important;
+}
+.content-card-title {
+  font-size: 15px;
+  line-height: 1;
+}
+
+// :host ::ng-deep .ant-modal {
+//   width: unset !important;
+//   max-width: 40rem;
+// }
+
+.card-shadow {
+  &:hover {
+    -webkit-box-shadow: rgb(99 99 99 / 10%) 0px 2px 4px 0px;
+    box-shadow: rgb(99 99 99 / 10%) 0px 2px 4px 0px;
+  }
+}
+
+.grayText {
+  color: #53535f;
+}
+
+.b-15 {
+  bottom: 15px;
+}
+
+.card-height {
+  height: 300px;
+  max-height: 300px;
+}
+
+pre {
+  font-family: "DM Sans";
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: unset;
+  word-wrap: break-word;
+  line-height: 1.8;
+  overflow: hidden;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1440px) {
+  .card-height {
+    height: 420px;
+  }
+}
+
+// pre {
+//   margin-bottom: 5px;
+//   height: calc(280px - 96.2px);
+// }
+.content-card-main {
+  -webkit-transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  opacity: 1;
+  border-radius: 1.5rem;
+  background: white;
+}
+.content-card-text {
+  height: 70%;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #7b88a8 !important;
+}
+.content-card-header {
+  height: 10%;
+  img {
+    width: 20px;
+    height: 20px;
+  }
+  i {
+    color: #72849a;
+  }
+}
+.content-card-footer {
+  color: #72849a !important;
+  font-size: 13px;
+  padding-top: 6px;
+  margin-top: 10px;
+}
+
+::ng-deep {
+  .ant-drawer-body {
+    overflow-y: overlay;
+  }
+}

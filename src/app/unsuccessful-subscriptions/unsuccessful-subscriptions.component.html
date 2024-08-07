@@ -1,0 +1,52 @@
+<div class="container-fluid p-t-80 p-b-80 h-100 welcome">
+  <div class="row m-b-15">
+    <div class="col-lg-6 col-md-8 col-12 m-auto p-4" style="text-align: start;">
+      <h1 class="mc-h1 color-darkest">Welcome {{user?.first_name}} 👋</h1>
+      <p class="mc-p normal color-dark">Please update your billing details.</p>
+    </div>
+  </div>
+  <div [hidden]="usage" class="row h-50 mt-4">
+    <i nz-icon class="col m-auto" nzType="loading"></i>
+  </div>
+  <div class="mt-4" [hidden]="!usage">
+    <div class="row">
+      <div class="col-lg-6 col-md-8 col-12 m-auto px-4 pt-4">
+        <nz-card nzTitle="Plan Details">
+          <div class="d-flex m-b-10">
+            <nz-tag class="m-b-0 ant-avatar-green mr-0" [nzColor]="'geekblue'">
+              <span *ngIf="usage?.days_left_in_trial > 0">{{'Free trial ends in '+usage?.days_left_in_trial+' days' |
+                titlecase}}</span>
+              <span class="text-capitalize" *ngIf="usage?.days_left_in_trial == 0">{{usage?.subscription_plan?.name}}
+                plan</span>
+            </nz-tag>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="w-100">
+              <h3 class="color-darker mc-h3 m-b-0">
+                <span class="m-r-5">{{usage?.total_words_in_plan | titlecase}} Word Credits on <span
+                    class="mc-h2 m-r-10 text-capitalize fw-900">{{usage?.subscription_plan?.name}} Plan <span
+                      class="mc-p large fw-500"
+                      *ngIf="usage?.subscription_plan?.period_billing">({{usage?.subscription_plan?.period_billing |
+                      titlecase}}ly)</span></span></span>
+              </h3>
+              <!-- <nz-divider></nz-divider> -->
+            </div>
+          </div>
+        </nz-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-8 col-12 m-auto px-4 ">
+        <div class="d-flex align-items-center justify-content-end">
+          <button nz-button (click)="reload()" [nzSize]="'default'" nzType="default"
+            class="mc-btn mc-btn-secondary mr-2">Refresh</button>
+          <button nz-button class="mc-btn mc-btn-primary" nzType="primary"
+            (click)="updateDetails()">Edit Billing
+            Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button nz-button [nzSize]="'small'" nzType="default" class="mc-btn mc-btn-secondary"
+    style="position: absolute; top: 20px; right: 20px;" (click)="logout()">Logout</button>
+</div>
